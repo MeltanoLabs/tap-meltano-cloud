@@ -15,7 +15,6 @@ else:
     from typing_extensions import override
 
 if TYPE_CHECKING:
-
     import requests
     from singer_sdk.pagination import BaseAPIPaginator
 

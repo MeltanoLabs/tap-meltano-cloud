@@ -8,5 +8,5 @@ from tap_meltanocloud.tap import TapMeltanoCloud
 TestTapMeltanoCloud = get_tap_test_class(
     tap_class=TapMeltanoCloud,
     config={},
-    suite_config=SuiteConfig(max_records_limit=50)
+    suite_config=SuiteConfig(max_records_limit=50),
 )
