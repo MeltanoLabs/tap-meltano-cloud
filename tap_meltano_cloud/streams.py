@@ -54,8 +54,8 @@ class _WorkspaceChildSchema(StreamSchema[str]):
     """Schema for all workspace-scoped streams."""
 
     @override
-    def get_stream_schema(self, stream: MeltanoCloudStream, stream_class: type[MeltanoCloudStream]) -> dict:
-        schema = super().get_stream_schema(stream, stream_class)
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
         schema["properties"]["workspaceId"] = {
             "format": "uuid",
             "type": ["string", "null"],
