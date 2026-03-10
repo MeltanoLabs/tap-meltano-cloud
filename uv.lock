@@ -1549,7 +1549,6 @@ wheels = [
 
 [[package]]
 name = "tap-meltanocloud"
-version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "requests" },
@@ -1582,9 +1581,9 @@ typing = [
 [package.metadata]
 requires-dist = [
     { name = "requests", specifier = "~=2.32.3" },
-    { name = "s3fs", marker = "extra == 's3'", specifier = ">=2026.1.0" },
+    { name = "s3fs", marker = "extra == 's3'", specifier = ">=2026.1" },
     { name = "singer-sdk", specifier = "~=0.54.0a5" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.5.0" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.5" },
 ]
 provides-extras = ["s3"]
 
