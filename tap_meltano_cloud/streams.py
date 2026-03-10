@@ -30,7 +30,6 @@ class WorkspacesStream(MeltanoCloudStream):
 
     name = "workspaces"
     path = "/workspaces"
-    primary_keys = ("id",)
     records_jsonpath = "$._embedded.workspaces[*]"
     schema = StreamSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
 
