@@ -1,4 +1,4 @@
-# AGENTS.md - AI Agent Development Guide for tap-meltanocloud
+# AGENTS.md - AI Agent Development Guide for tap-meltano-cloud
 
 This document provides guidance for AI coding agents and developers working on this Singer tap.
 
@@ -16,9 +16,9 @@ This tap follows the Singer specification and uses the Meltano Singer SDK to ext
 
 ### Key Components
 
-1. **Tap Class** (`tap_meltanocloud/tap.py`): Main entry point, defines streams and configuration
-1. **Client** (`tap_meltanocloud/client.py`): Handles API communication and authentication
-1. **Streams** (`tap_meltanocloud/streams.py`): Define data streams and their schemas
+1. **Tap Class** (`tap_meltano_cloud/tap.py`): Main entry point, defines streams and configuration
+1. **Client** (`tap_meltano_cloud/client.py`): Handles API communication and authentication
+1. **Streams** (`tap_meltano_cloud/streams.py`): Define data streams and their schemas
    ## Development Guidelines for AI Agents
 
 ### Understanding Singer Concepts
@@ -35,7 +35,7 @@ Before making changes, ensure you understand these Singer concepts:
 
 #### Adding a New Stream
 
-1. Define stream class in `tap_meltanocloud/streams.py`
+1. Define stream class in `tap_meltano_cloud/streams.py`
 1. Set `name`, `path`, `primary_keys`, and `replication_key` (set this to `None` if not applicable)
 1. Define schema using `PropertiesList` or JSON Schema
 1. Register stream in the tap's `discover_streams()` method
@@ -195,8 +195,8 @@ config_jsonschema = th.PropertiesList(
 Example test with config:
 
 ```bash
-tap-meltanocloud --config config.json --discover
-tap-meltanocloud --config config.json --catalog catalog.json
+tap-meltano-cloud --config config.json --discover
+tap-meltano-cloud --config config.json --catalog catalog.json
 ```
 
 ### Keeping meltano.yml and Tap Settings in Sync
@@ -212,14 +212,14 @@ When this tap is used with Meltano, the settings defined in `meltano.yml` must s
 
 **How to sync:**
 
-1. Update `config_jsonschema` in `tap_meltanocloud/tap.py`
+1. Update `config_jsonschema` in `tap_meltano_cloud/tap.py`
 1. Update the corresponding `settings` block in `meltano.yml`
 1. Update `.env.example` with the new environment variable
 
 Example - adding a new `batch_size` setting:
 
 ```python
-# tap_meltanocloud/tap.py
+# tap_meltano_cloud/tap.py
 config_jsonschema = th.PropertiesList(
     th.Property("api_url", th.StringType, required=True),
     th.Property("api_key", th.StringType, required=True, secret=True),
@@ -231,7 +231,7 @@ config_jsonschema = th.PropertiesList(
 # meltano.yml
 plugins:
   extractors:
-    - name: tap-meltanocloud
+    - name: tap-meltano-cloud
       settings:
         - name: api_url
           kind: string
@@ -245,9 +245,9 @@ plugins:
 
 ```bash
 # .env.example
-TAP_MELTANOCLOUD_API_URL=https://api.example.com
-TAP_MELTANOCLOUD_API_KEY=your_api_key_here
-TAP_MELTANOCLOUD_BATCH_SIZE=100  # New setting
+TAP_MELTANO_CLOUD_API_URL=https://api.example.com
+TAP_MELTANO_CLOUD_API_KEY=your_api_key_here
+TAP_MELTANO_CLOUD_BATCH_SIZE=100  # New setting
 ```
 
 **Setting kind mappings:**
@@ -301,8 +301,8 @@ Any properties with `secret=True` should be marked with `sensitive: true` in `me
 ## File Structure
 
 ```
-tap-meltanocloud/
-├── tap_meltanocloud/
+tap-meltano-cloud/
+├── tap_meltano_cloud/
 │   ├── __init__.py
 │   ├── tap.py          # Main tap class
 │   ├── client.py       # API client

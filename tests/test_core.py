@@ -2,7 +2,7 @@
 
 from singer_sdk.testing import SuiteConfig, get_tap_test_class
 
-from tap_meltanocloud.tap import TapMeltanoCloud
+from tap_meltano_cloud.tap import TapMeltanoCloud
 
 # Run standard built-in tap tests from the SDK:
 TestTapMeltanoCloud = get_tap_test_class(

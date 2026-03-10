@@ -1,4 +1,4 @@
-"""Stream type classes for tap-meltanocloud."""
+"""Stream type classes for tap-meltano-cloud."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING, Any
 
 from singer_sdk import OpenAPISchema, StreamSchema
 
-from tap_meltanocloud import openapi
-from tap_meltanocloud.client import MeltanoCloudStream
+from tap_meltano_cloud import openapi
+from tap_meltano_cloud.client import MeltanoCloudStream
 
 if sys.version_info >= (3, 12):
     from typing import override

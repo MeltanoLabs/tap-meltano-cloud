@@ -7,7 +7,7 @@ import sys
 from singer_sdk import Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
 
-from tap_meltanocloud import streams
+from tap_meltano_cloud import streams
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -18,7 +18,7 @@ else:
 class TapMeltanoCloud(Tap):
     """Singer tap for MeltanoCloud."""
 
-    name = "tap-meltanocloud"
+    name = "tap-meltano-cloud"
 
     config_jsonschema = th.PropertiesList(
         th.Property(

@@ -1,6 +1,6 @@
-# tap-meltanocloud
+# tap-meltano-cloud
 
-`tap-meltanocloud` is a Singer tap for [MeltanoCloud](https://www.matatika.com), extracting workspaces, pipelines, datasets, jobs, channels, data stores, and data components.
+`tap-meltano-cloud` is a Singer tap for [MeltanoCloud](https://www.matatika.com), extracting workspaces, pipelines, datasets, jobs, channels, data stores, and data components.
 
 Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 
@@ -9,7 +9,7 @@ Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 Install from GitHub:
 
 ```bash
-uv tool install git+https://github.com/Matatika/tap-meltanocloud.git@main
+uv tool install git+https://github.com/Matatika/tap-meltano-cloud.git@main
 ```
 
 ## Streams
@@ -24,7 +24,7 @@ uv tool install git+https://github.com/Matatika/tap-meltanocloud.git@main
 | `datastores` | `GET /workspaces/{workspace_id}/datastores` | `id` |
 | `datacomponents` | `GET /workspaces/{workspace_id}/datacomponents` | `id` |
 
-Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_meltanocloud/openapi/openapi.json).
+Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_meltano_cloud/openapi/openapi.json).
 
 ## Configuration
 
@@ -39,7 +39,7 @@ Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_m
 A full list of supported settings and capabilities is available by running:
 
 ```bash
-tap-meltanocloud --about
+tap-meltano-cloud --about
 ```
 
 ### Configure using environment variables
@@ -50,17 +50,17 @@ environment variable is set either in the terminal context or in the `.env` file
 
 ### Source Authentication and Authorization
 
-Authentication uses a **Bearer token**. Obtain your API token from the MeltanoCloud / Matatika platform and set it as `auth_token` (or `TAP_MELTANOCLOUD_AUTH_TOKEN` environment variable).
+Authentication uses a **Bearer token**. Obtain your API token from the MeltanoCloud / Matatika platform and set it as `auth_token` (or `TAP_MELTANO_CLOUD_AUTH_TOKEN` environment variable).
 
 ## Usage
 
 ### Executing the Tap Directly
 
 ```bash
-tap-meltanocloud --version
-tap-meltanocloud --help
-tap-meltanocloud --config config.json --discover > ./catalog.json
-tap-meltanocloud --config config.json --catalog catalog.json
+tap-meltano-cloud --version
+tap-meltano-cloud --help
+tap-meltano-cloud --config config.json --discover > ./catalog.json
+tap-meltano-cloud --config config.json --catalog catalog.json
 ```
 
 Example `config.json`:
@@ -74,8 +74,8 @@ Example `config.json`:
 ### Using with Meltano
 
 ```bash
-meltano add extractor tap-meltanocloud --from-ref https://raw.githubusercontent.com/Matatika/tap-meltanocloud/main/meltano.yml
-meltano run tap-meltanocloud target-jsonl
+meltano add extractor tap-meltano-cloud --from-ref https://raw.githubusercontent.com/Matatika/tap-meltano-cloud/main/meltano.yml
+meltano run tap-meltano-cloud target-jsonl
 ```
 
 ## Developer Resources
@@ -94,7 +94,7 @@ uv sync
 uv run pytest
 ```
 
-Tests require `TAP_MELTANOCLOUD_AUTH_TOKEN` to run against the live API. Copy `.env.example` to `.env` and fill in your credentials.
+Tests require `TAP_MELTANO_CLOUD_AUTH_TOKEN` to run against the live API. Copy `.env.example` to `.env` and fill in your credentials.
 
 ### SDK Dev Guide
 

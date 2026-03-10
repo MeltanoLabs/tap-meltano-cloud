@@ -6,12 +6,13 @@ requires = [
 ]
 
 [project]
-name = "tap-meltanocloud"
-description = "Singer tap for MeltanoCloud, built with the Meltano Singer SDK."
+name = "tap-meltano-cloud"
+description = "Singer tap for Meltano Cloud, built with the Meltano Singer SDK."
 readme = "README.md"
 keywords = [
   "ELT",
-  "MeltanoCloud",
+  "Meltano",
+  "Meltano Cloud",
 ]
 license = "Apache-2.0"
 license-files = [ "LICENSE" ]
@@ -41,7 +42,7 @@ s3 = [
 ]
 [project.scripts]
 # CLI declaration
-tap-meltanocloud = "tap_meltanocloud.tap:TapMeltanoCloud.cli"
+tap-meltano-cloud = "tap_meltano_cloud.tap:TapMeltanoCloud.cli"
 
 [dependency-groups]
 dev = [
@@ -115,15 +116,15 @@ env_list = [
 [tool.tox.env.typing]
 dependency_groups = [ "test", "typing" ]
 commands = [
-  [ "mypy", { replace = "posargs", default = [ "tap_meltanocloud", "tests" ], extend = true } ],
-  [ "ty", "check", { replace = "posargs", default = [ "tap_meltanocloud", "tests" ], extend = true } ],
+  [ "mypy", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
+  [ "ty", "check", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
 ]
 
 [tool.tox.env_run_base]
 runner = "uv-venv-lock-runner"
 pass_env = [
   "GITHUB_*",
-  "TAP_MELTANOCLOUD_*",
+  "TAP_MELTANO_CLOUD_*",
 ]
 dependency_groups = [ "test" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]

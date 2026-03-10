@@ -1,1 +1,1 @@
-"""Test suite for tap-meltanocloud."""
+"""Test suite for tap-meltano-cloud."""

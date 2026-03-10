@@ -1,18 +1,18 @@
-name: Test tap-meltanocloud
+name: Test tap-meltano-cloud
 
 on:
   push:
     branches: [main]
     paths:
     - .github/workflows/test.yml
-    - tap_meltanocloud/**
+    - tap_meltano_cloud/**
     - tests/**
     - pyproject.toml
     - uv.lock
   pull_request:
     paths:
     - .github/workflows/test.yml
-    - tap_meltanocloud/**
+    - tap_meltano_cloud/**
     - tests/**
     - pyproject.toml
     - uv.lock
@@ -49,8 +49,8 @@ jobs:
       matrix:
         python-version: ${{ fromJson(needs.build-package.outputs.supported-python-versions) }}
     env:
-      TAP_MELTANOCLOUD_AUTH_TOKEN: ${{ secrets.TAP_MELTANOCLOUD_AUTH_TOKEN }}
-      TAP_MELTANOCLOUD_WORKSPACE_IDS: ${{ secrets.TAP_MELTANOCLOUD_WORKSPACE_IDS }}
+      TAP_MELTANO_CLOUD_AUTH_TOKEN: ${{ secrets.TAP_MELTANO_CLOUD_AUTH_TOKEN }}
+      TAP_MELTANO_CLOUD_WORKSPACE_IDS: ${{ secrets.TAP_MELTANO_CLOUD_WORKSPACE_IDS }}
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - name: Set up Python ${{ matrix.python-version }}
