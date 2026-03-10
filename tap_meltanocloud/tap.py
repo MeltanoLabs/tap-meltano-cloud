@@ -7,7 +7,6 @@ import sys
 from singer_sdk import Tap
 from singer_sdk import typing as th  # JSON schema typing helpers
 
-# TODO: Import your custom stream types here:
 from tap_meltanocloud import streams
 
 if sys.version_info >= (3, 12):
@@ -21,7 +20,6 @@ class TapMeltanoCloud(Tap):
 
     name = "tap-meltanocloud"
 
-    # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
             "auth_token",
@@ -30,13 +28,6 @@ class TapMeltanoCloud(Tap):
             secret=True,  # Flag config as protected.
             title="Auth Token",
             description="The token to authenticate against the API service",
-        ),
-        th.Property(
-            "workspace_ids",
-            th.ArrayType(th.StringType(nullable=False), nullable=False),
-            required=True,
-            title="Workspace IDs",
-            description="Workspace IDs to replicate",
         ),
         th.Property(
             "start_date",

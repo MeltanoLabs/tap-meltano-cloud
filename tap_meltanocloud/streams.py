@@ -17,6 +17,8 @@ else:
     from typing_extensions import override
 
 if TYPE_CHECKING:
+    from collections.abc import Generator
+
     from singer_sdk.helpers.types import Context
 
 
@@ -27,88 +29,89 @@ class WorkspacesStream(MeltanoCloudStream):
     """Workspaces stream."""
 
     name = "workspaces"
-    path = "/workspaces/{workspace_id}"
+    path = "/workspaces"
     primary_keys = ("id",)
-    records_jsonpath = "$"
+    records_jsonpath = "$._embedded.workspaces[*]"
     schema = StreamSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
-
-    @property
-    @override
-    def partitions(self) -> list[dict]:
-        """Return a list of partition contexts from configured project IDs."""
-        return [{"workspace_id": wid} for wid in self.config["workspace_ids"]]
 
     @override
     def generate_child_contexts(
         self,
         record: dict[str, Any],
         context: Context | None,
-    ) -> list[Context | None]:
+    ) -> Generator[Context | None, None, None]:
         """Generate child contexts for workspace-scoped streams."""
-        yield {"workspace_id": record["id"]}
+        yield {"workspaceId": record["id"]}
 
 
-class PipelinesStream(MeltanoCloudStream):
+class _WorkspaceChildStream(MeltanoCloudStream):
+    """Base class for all streams that have `workspaces` as parent."""
+
+    parent_stream_type = WorkspacesStream
+
+
+class _WorkspaceChildSchema(StreamSchema[str]):
+    """Schema for all workspace-scoped streams."""
+
+    @override
+    def get_stream_schema(self, stream: MeltanoCloudStream, stream_class: type[MeltanoCloudStream]) -> dict:
+        schema = super().get_stream_schema(stream, stream_class)
+        schema["properties"]["workspaceId"] = {
+            "format": "uuid",
+            "type": ["string", "null"],
+        }
+        return schema
+
+
+class PipelinesStream(_WorkspaceChildStream):
     """Pipelines stream."""
 
     name = "pipelines"
-    path = "/workspaces/{workspace_id}/pipelines"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="PipelineResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="PipelineResource")
 
 
-class DatasetsStream(MeltanoCloudStream):
+class DatasetsStream(_WorkspaceChildStream):
     """Datasets stream."""
 
     name = "datasets"
-    path = "/workspaces/{workspace_id}/datasets"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/datasets"
     records_jsonpath = "$._embedded.datasets[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="DatasetResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
 
 
-class JobsStream(MeltanoCloudStream):
+class JobsStream(_WorkspaceChildStream):
     """Jobs stream."""
 
     name = "jobs"
-    path = "/workspaces/{workspace_id}/jobs"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="JobResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
 
-class ChannelsStream(MeltanoCloudStream):
+class ChannelsStream(_WorkspaceChildStream):
     """Channels stream."""
 
     name = "channels"
-    path = "/workspaces/{workspace_id}/channels"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/channels"
     records_jsonpath = "$._embedded.channels[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="ChannelResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="ChannelResource")
 
 
-class DataStoresStream(MeltanoCloudStream):
+class DataStoresStream(_WorkspaceChildStream):
     """Data stores stream."""
 
     name = "datastores"
-    path = "/workspaces/{workspace_id}/datastores"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/datastores"
     records_jsonpath = "$._embedded.datastores[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="DataStoreResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataStoreResource")
 
 
-class DataComponentsStream(MeltanoCloudStream):
+class DataComponentsStream(_WorkspaceChildStream):
     """Data components stream."""
 
     name = "datacomponents"
-    path = "/workspaces/{workspace_id}/datacomponents"
-    primary_keys = ("id",)
+    path = "/workspaces/{workspaceId}/datacomponents"
     records_jsonpath = "$._embedded.datacomponents[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="DataComponentResource")
-    parent_stream_type = WorkspacesStream
+    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataComponentResource")

@@ -16,7 +16,7 @@ uv tool install git+https://github.com/Matatika/tap-meltanocloud.git@main
 
 | Stream | Endpoint | Primary Key |
 |:-------|:---------|:------------|
-| `workspaces` | `GET /workspaces/{workspace_id}` | `id` |
+| `workspaces` | `GET /workspaces` | `id` |
 | `pipelines` | `GET /workspaces/{workspace_id}/pipelines` | `id` |
 | `datasets` | `GET /workspaces/{workspace_id}/datasets` | `id` |
 | `jobs` | `GET /workspaces/{workspace_id}/jobs` | `id` |
@@ -33,7 +33,6 @@ Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_m
 | Setting | Required | Default | Description |
 |:--------|:--------:|:-------:|:------------|
 | auth_token | True | None | The token to authenticate against the API service |
-| workspace_ids | True | None | Workspace IDs to replicate |
 | start_date | False | None | The earliest record date to sync |
 | api_url | False | https://app.matatika.com/api | The url for the API service |
 
@@ -68,8 +67,7 @@ Example `config.json`:
 
 ```json
 {
-  "auth_token": "your-token-here",
-  "workspace_ids": ["your-workspace-id"]
+  "auth_token": "your-token-here"
 }
 ```
 
@@ -96,7 +94,7 @@ uv sync
 uv run pytest
 ```
 
-Tests require `TAP_MELTANOCLOUD_AUTH_TOKEN` and `TAP_MELTANOCLOUD_WORKSPACE_IDS` environment variables to run against the live API. Copy `.env.example` to `.env` and fill in your credentials.
+Tests require `TAP_MELTANOCLOUD_AUTH_TOKEN` to run against the live API. Copy `.env.example` to `.env` and fill in your credentials.
 
 ### SDK Dev Guide
 

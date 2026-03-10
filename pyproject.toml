@@ -63,6 +63,7 @@ source = "vcs"
 
 [tool.pytest]
 addopts = [
+    "-v",
     "--durations=10",
     "-ra",
     "--strict-config",
@@ -95,13 +96,14 @@ warn_unused_ignores = true
 unused-type-ignore-comment = "ignore"
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 required-version = ">=0.15"
 
 [tool.ruff.lint]
 future-annotations = true
 ignore = [
     "COM812",  # missing-trailing-comma
+    "FIX",     # allow TODO comments
 ]
 select = ["ALL"]
 
@@ -111,7 +113,6 @@ allow-star-arg-any = true
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
-# This configuration can be used to customize tox environments
 [tool.tox]
 min_version = "4.43"
 requires = [
@@ -140,6 +141,3 @@ commands = [
     [ "mypy", { replace = "posargs", default = [ "tap_meltanocloud", "tests" ], extend = true } ],
     [ "ty", "check", { replace = "posargs", default = [ "tap_meltanocloud", "tests" ], extend = true } ],
 ]
-
-[tool.uv.sources]
-singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "main" }
