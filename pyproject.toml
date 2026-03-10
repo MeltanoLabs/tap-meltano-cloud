@@ -63,6 +63,9 @@ typing = [
 fallback-version = "0.1.0.dev0"
 source = "vcs"
 
+[tool.uv.sources]
+singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "fix/parent-before-children" }
+
 [tool.ruff]
 required-version = ">=0.15"
 line-length = 120

@@ -1444,8 +1444,8 @@ wheels = [
 
 [[package]]
 name = "singer-sdk"
-version = "0.54.0a5"
-source = { registry = "https://pypi.org/simple" }
+version = "0.54.0a6.dev5+g88fbe387c"
+source = { git = "https://github.com/meltano/sdk.git?rev=fix%2Fparent-before-children#88fbe387cf41903967438eb58ae2642d7f60512f" }
 dependencies = [
     { name = "backports-datetime-fromisoformat", marker = "python_full_version < '3.11'" },
     { name = "click" },
@@ -1467,10 +1467,6 @@ dependencies = [
     { name = "typing-extensions", marker = "python_full_version < '3.13'" },
     { name = "universal-pathlib" },
     { name = "urllib3" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a8/90/056a2b75874ea738519bcc3009d2038e9d5bbacd74805e49b48a07f5ad2f/singer_sdk-0.54.0a5.tar.gz", hash = "sha256:f28f071034f536f3fb9dd6ee9a649035455ca941e785af3f167fe15030b04176", size = 1375982, upload-time = "2026-03-10T02:56:59.81Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/72/27/bfd8f30f8c014b609fc5dc831eeaf1d773b182dcfb3a587270a4a7bb6b28/singer_sdk-0.54.0a5-py3-none-any.whl", hash = "sha256:21798764ac23c319df9dd0bee1539ea167b00ef0efbe2c9db76b667d4d5efc2f", size = 214185, upload-time = "2026-03-10T02:56:56.023Z" },
 ]
 
 [package.optional-dependencies]
@@ -1582,7 +1578,7 @@ typing = [
 requires-dist = [
     { name = "requests", specifier = "~=2.32.3" },
     { name = "s3fs", marker = "extra == 's3'", specifier = ">=2026.1" },
-    { name = "singer-sdk", specifier = "~=0.54.0a5" },
+    { name = "singer-sdk", git = "https://github.com/meltano/sdk.git?rev=fix%2Fparent-before-children" },
     { name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.5" },
 ]
 provides-extras = ["s3"]
@@ -1591,12 +1587,12 @@ provides-extras = ["s3"]
 dev = [
     { name = "pytest", specifier = ">=9" },
     { name = "pytest-github-actions-annotate-failures", specifier = ">=0.3" },
-    { name = "singer-sdk", extras = ["testing"] },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=fix%2Fparent-before-children" },
 ]
 test = [
     { name = "pytest", specifier = ">=9" },
     { name = "pytest-github-actions-annotate-failures", specifier = ">=0.3" },
-    { name = "singer-sdk", extras = ["testing"] },
+    { name = "singer-sdk", extras = ["testing"], git = "https://github.com/meltano/sdk.git?rev=fix%2Fparent-before-children" },
 ]
 typing = [
     { name = "mypy", specifier = ">=1.19.1" },
