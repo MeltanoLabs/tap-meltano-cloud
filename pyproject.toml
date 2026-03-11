@@ -30,7 +30,7 @@ classifiers = [
 dynamic = [ "version" ]
 dependencies = [
   "requests~=2.32.3",
-  "singer-sdk~=0.54.0a5",
+  "singer-sdk~=0.54.0a6",
   "typing-extensions>=4.5; python_version<'3.13'",
 ]
 [[project.authors]]
@@ -62,9 +62,6 @@ typing = [
 [tool.hatch.version]
 fallback-version = "0.1.0.dev0"
 source = "vcs"
-
-[tool.uv.sources]
-singer-sdk = { git = "https://github.com/meltano/sdk.git", rev = "fix/parent-before-children" }
 
 [tool.ruff]
 required-version = ">=0.15"
