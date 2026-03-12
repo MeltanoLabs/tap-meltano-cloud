@@ -17,12 +17,12 @@ uv tool install git+https://github.com/Matatika/tap-meltano-cloud.git@main
 | Stream | Endpoint | Primary Key |
 |:-------|:---------|:------------|
 | `workspaces` | `GET /workspaces` | `id` |
-| `pipelines` | `GET /workspaces/{workspace_id}/pipelines` | `id` |
-| `datasets` | `GET /workspaces/{workspace_id}/datasets` | `id` |
-| `jobs` | `GET /workspaces/{workspace_id}/jobs` | `id` |
-| `channels` | `GET /workspaces/{workspace_id}/channels` | `id` |
-| `datastores` | `GET /workspaces/{workspace_id}/datastores` | `id` |
-| `datacomponents` | `GET /workspaces/{workspace_id}/datacomponents` | `id` |
+| `pipelines` | `GET /workspaces/{workspaceId}/pipelines` | `id` |
+| `datasets` | `GET /workspaces/{workspaceId}/datasets` | `id` |
+| `jobs` | `GET /workspaces/{workspaceId}/jobs` | `id` |
+| `channels` | `GET /workspaces/{workspaceId}/channels` | `id` |
+| `datastores` | `GET /workspaces/{workspaceId}/datastores` | `id` |
+| `datacomponents` | `GET /workspaces/{workspaceId}/datacomponents` | `id` |
 
 Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_meltano_cloud/openapi/openapi.json).
 

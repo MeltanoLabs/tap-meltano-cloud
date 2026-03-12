@@ -30,7 +30,7 @@ classifiers = [
 dynamic = [ "version" ]
 dependencies = [
   "requests~=2.32.3",
-  "singer-sdk~=0.54.0a5",
+  "singer-sdk~=0.54.0a6",
   "typing-extensions>=4.5; python_version<'3.13'",
 ]
 [[project.authors]]
@@ -93,6 +93,7 @@ filterwarnings = [
   "error",
   "once:No records were available to test:UserWarning",
   "once:Fields in transformed catalog but not in records:UserWarning",
+  "once:Python 3.10 will reach its end of life:FutureWarning",
 ]
 log_level = "INFO"
 minversion = "9.0"
