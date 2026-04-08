@@ -103,9 +103,8 @@ testpaths = [
 xfail_strict = true
 
 [tool.tox]
-min_version = "4.43"
 requires = [
-  "tox>=4.43",
+  "tox>=4.52",
   "tox-uv",
 ]
 env_list = [
@@ -115,6 +114,7 @@ env_list = [
   ] },
 ]
 [tool.tox.env.typing]
+description = "type checks with mypy and ty"
 dependency_groups = [ "test", "typing" ]
 commands = [
   [ "mypy", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
@@ -122,6 +122,7 @@ commands = [
 ]
 
 [tool.tox.env_run_base]
+description = "run tests on Python {env_name}"
 runner = "uv-venv-lock-runner"
 pass_env = [
   "GITHUB_*",

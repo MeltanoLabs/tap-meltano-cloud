@@ -24,8 +24,8 @@ plugins:
     - name: auth_token
       label: Auth Token
       description: The token to authenticate against the API service
-
       sensitive: true
+
     - name: start_date
       kind: date_iso8601
       label: Start Date
