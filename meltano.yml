@@ -31,6 +31,15 @@ plugins:
       label: Start Date
       description: Initial date to start extracting data from
 
+    - name: workspace_ids
+      kind: array
+      label: Workspace IDs
+      description: >-
+        List of workspace IDs to sync. When set, only the specified workspaces
+        are fetched individually without requiring the workspaces list endpoint.
+        When omitted, all workspaces accessible to the authenticated user are
+        discovered and synced.
+
     config:
       start_date: 6 months ago
 

@@ -35,6 +35,7 @@ Schemas are derived directly from the [MeltanoCloud OpenAPI specification](tap_m
 | auth_token | True | None | The token to authenticate against the API service |
 | start_date | False | None | The earliest record date to sync |
 | api_url | False | https://app.matatika.com/api | The url for the API service |
+| workspace_ids | False | None | List of workspace IDs to sync. When set, only the specified workspaces are fetched individually without requiring the workspaces list endpoint. When omitted, all workspaces accessible to the authenticated user are discovered and synced. |
 
 A full list of supported settings and capabilities is available by running:
 
