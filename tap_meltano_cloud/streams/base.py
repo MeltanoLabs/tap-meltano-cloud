@@ -1,13 +1,17 @@
-"""REST client handling, including MeltanoCloudStream base class."""
+"""Stream type classes for tap-meltano-cloud."""
 
 from __future__ import annotations
 
 import sys
+from importlib import resources
 from typing import TYPE_CHECKING, Any
 
+from singer_sdk import OpenAPISchema, StreamSchema
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.pagination import BaseHATEOASPaginator
 from singer_sdk.streams import RESTStream
+
+from tap_meltano_cloud import openapi
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -17,6 +21,8 @@ else:
 if TYPE_CHECKING:
     import requests
     from singer_sdk.pagination import BaseAPIPaginator
+
+OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
 
 
 # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
@@ -39,14 +45,14 @@ class MeltanoCloudStream(RESTStream[Any]):
     primary_keys = ("id",)
     records_jsonpath = "$[*]"
 
-    @override
     @property
+    @override
     def url_base(self) -> str:
         """Return the API URL root, configurable via tap settings."""
         return self.config["api_url"]
 
-    @override
     @property
+    @override
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
         return BearerTokenAuthenticator(token=self.config["auth_token"])
@@ -57,3 +63,16 @@ class MeltanoCloudStream(RESTStream[Any]):
         # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
         # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
         return None
+
+
+class _WorkspaceChildSchema(StreamSchema[str]):
+    """Schema for all workspace-scoped streams."""
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"]["workspaceId"] = {
+            "format": "uuid",
+            "type": ["string", "null"],
+        }
+        return schema

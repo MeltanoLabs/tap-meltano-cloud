@@ -1,15 +1,13 @@
-"""Stream type classes for tap-meltano-cloud."""
+"""Streams for accessing all data the token owner has access to."""
 
 from __future__ import annotations
 
 import sys
-from importlib import resources
 from typing import TYPE_CHECKING, Any
 
-from singer_sdk import OpenAPISchema, StreamSchema
+from singer_sdk import StreamSchema
 
-from tap_meltano_cloud import openapi
-from tap_meltano_cloud.client import MeltanoCloudStream
+from .base import OPENAPI_SCHEMA, MeltanoCloudStream, _WorkspaceChildSchema
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -20,9 +18,6 @@ if TYPE_CHECKING:
     from collections.abc import Generator
 
     from singer_sdk.helpers.types import Context
-
-
-OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
 
 
 class WorkspacesStream(MeltanoCloudStream):
@@ -44,22 +39,9 @@ class WorkspacesStream(MeltanoCloudStream):
 
 
 class _WorkspaceChildStream(MeltanoCloudStream):
-    """Base class for all streams that have `workspaces` as parent."""
+    """Base class for workspace-child streams driven by the me WorkspacesStream."""
 
     parent_stream_type = WorkspacesStream
-
-
-class _WorkspaceChildSchema(StreamSchema[str]):
-    """Schema for all workspace-scoped streams."""
-
-    @override
-    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
-        schema = super().get_stream_schema(*args, **kwargs)
-        schema["properties"]["workspaceId"] = {
-            "format": "uuid",
-            "type": ["string", "null"],
-        }
-        return schema
 
 
 class PipelinesStream(_WorkspaceChildStream):

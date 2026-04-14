@@ -26,13 +26,13 @@ repos:
   - id: check-meltano
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.15.9
+  rev: v0.15.10
   hooks:
   - id: ruff-check
   - id: ruff-format
 
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.11.4
+  rev: 0.11.6
   hooks:
   - id: uv-lock
   - id: uv-sync
@@ -43,6 +43,6 @@ repos:
   - id: mdformat
 
 - repo: https://github.com/tox-dev/pyproject-fmt
-  rev: v2.21.0
+  rev: v2.21.1
   hooks:
   - id: pyproject-fmt
