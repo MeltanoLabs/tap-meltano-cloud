@@ -34,11 +34,6 @@ class TapMeltanoCloud(Tap):
             description="The token to authenticate against the API service",
         ),
         th.Property(
-            "start_date",
-            th.DateTimeType(nullable=True),
-            description="The earliest record date to sync",
-        ),
-        th.Property(
             "api_url",
             th.StringType(nullable=False),
             title="API URL",
