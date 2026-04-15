@@ -78,6 +78,22 @@ class _WorkspaceChildSchema(StreamSchema[str]):
         return schema
 
 
+class _WorkspaceSchema(StreamSchema[str]):
+    """Schema for workspace streams — excludes sensitive fields.
+
+    ``deploymentSecret`` and ``sshPrivateKey`` can contain sensitive credentials,
+    so they are omitted until a reliable obfuscation mechanism exists.
+    See https://github.com/MeltanoLabs/tap-meltano-cloud/issues/15
+    """
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"].pop("deploymentSecret", None)
+        schema["properties"].pop("sshPrivateKey", None)
+        return schema
+
+
 class _PipelineSchema(_WorkspaceChildSchema):
     """Schema for pipeline streams — excludes the ``properties`` field.
 
@@ -89,5 +105,36 @@ class _PipelineSchema(_WorkspaceChildSchema):
     @override
     def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
         schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"].pop("properties", None)
+        return schema
+
+
+class _DataComponentSchema(_WorkspaceChildSchema):
+    """Schema for data component streams — excludes the ``properties`` field.
+
+    Data component properties can contain sensitive data and there is currently no
+    reliable way to obfuscate them, so the field is omitted until that
+    capability exists.  See https://github.com/MeltanoLabs/tap-meltano-cloud/issues/15
+    """
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"].pop("properties", None)
+        return schema
+
+
+class _DataStoreSchema(_WorkspaceChildSchema):
+    """Schema for data store streams — excludes sensitive fields.
+
+    ``properties`` and ``jdbcUrl`` can contain sensitive data (credentials,
+    connection strings), so they are omitted until a reliable obfuscation
+    mechanism exists.  See https://github.com/MeltanoLabs/tap-meltano-cloud/issues/15
+    """
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"].pop("jdbcUrl", None)
         schema["properties"].pop("properties", None)
         return schema

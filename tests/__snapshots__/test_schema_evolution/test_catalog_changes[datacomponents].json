@@ -42,15 +42,6 @@
     {
       "breadcrumb": [
         "properties",
-        "properties"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
         "commands"
       ],
       "metadata": {
@@ -30960,15 +30951,6 @@
       "name": {
         "type": [
           "string",
-          "null"
-        ]
-      },
-      "properties": {
-        "additionalProperties": {
-          "type": "string"
-        },
-        "type": [
-          "object",
           "null"
         ]
       },

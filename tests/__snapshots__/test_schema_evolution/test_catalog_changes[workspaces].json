@@ -96,24 +96,6 @@
     {
       "breadcrumb": [
         "properties",
-        "deploymentSecret"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "sshPrivateKey"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
         "defaultEnvironment"
       ],
       "metadata": {
@@ -312,12 +294,6 @@
           "null"
         ]
       },
-      "deploymentSecret": {
-        "type": [
-          "string",
-          "null"
-        ]
-      },
       "domains": {
         "items": {
           "type": "string"
@@ -383,12 +359,6 @@
         ]
       },
       "repositoryUrl": {
-        "type": [
-          "string",
-          "null"
-        ]
-      },
-      "sshPrivateKey": {
         "type": [
           "string",
           "null"

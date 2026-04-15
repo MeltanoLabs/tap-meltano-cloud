@@ -5,9 +5,15 @@ from __future__ import annotations
 import sys
 from typing import TYPE_CHECKING, Any
 
-from singer_sdk import StreamSchema
-
-from .base import OPENAPI_SCHEMA, MeltanoCloudStream, _PipelineSchema, _WorkspaceChildSchema
+from .base import (
+    OPENAPI_SCHEMA,
+    MeltanoCloudStream,
+    _DataComponentSchema,
+    _DataStoreSchema,
+    _PipelineSchema,
+    _WorkspaceChildSchema,
+    _WorkspaceSchema,
+)
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -37,7 +43,13 @@ class WorkspacesStream(_ByWorkspaceStream):
     name = "workspaces"
     path = "/workspaces/{workspaceId}"
     records_jsonpath = "$"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
+    schema = _WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("deploymentSecret", None)
+        row.pop("sshPrivateKey", None)
+        return super().post_process(row, context)
 
 
 class PipelinesStream(_ByWorkspaceStream):
@@ -87,7 +99,13 @@ class DataStoresStream(_ByWorkspaceStream):
     name = "datastores"
     path = "/workspaces/{workspaceId}/datastores"
     records_jsonpath = "$._embedded.datastores[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+    schema = _DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("jdbcUrl", None)
+        row.pop("properties", None)
+        return super().post_process(row, context)
 
 
 class DataComponentsStream(_ByWorkspaceStream):
@@ -96,4 +114,9 @@ class DataComponentsStream(_ByWorkspaceStream):
     name = "datacomponents"
     path = "/workspaces/{workspaceId}/datacomponents"
     records_jsonpath = "$._embedded.datacomponents[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+    schema = _DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("properties", None)
+        return super().post_process(row, context)
