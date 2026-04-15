@@ -26,11 +26,6 @@ plugins:
       description: The token to authenticate against the API service
       sensitive: true
 
-    - name: start_date
-      kind: date_iso8601
-      label: Start Date
-      description: Initial date to start extracting data from
-
     - name: workspace_ids
       kind: array
       label: Workspace IDs
@@ -39,9 +34,6 @@ plugins:
         are fetched individually without requiring the workspaces list endpoint.
         When omitted, all workspaces accessible to the authenticated user are
         discovered and synced.
-
-    config:
-      start_date: 6 months ago
 
   loaders:
   - name: target-jsonl
