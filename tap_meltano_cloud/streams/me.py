@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any
 
 from singer_sdk import StreamSchema
 
-from .base import OPENAPI_SCHEMA, MeltanoCloudStream, _WorkspaceChildSchema
+from .base import OPENAPI_SCHEMA, MeltanoCloudStream, _PipelineSchema, _WorkspaceChildSchema
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -50,7 +50,12 @@ class PipelinesStream(_WorkspaceChildStream):
     name = "pipelines"
     path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="PipelineResource")
+    schema = _PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("properties", None)
+        return super().post_process(row, context)
 
 
 class DatasetsStream(_WorkspaceChildStream):

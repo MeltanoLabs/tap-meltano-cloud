@@ -76,3 +76,18 @@ class _WorkspaceChildSchema(StreamSchema[str]):
             "type": ["string", "null"],
         }
         return schema
+
+
+class _PipelineSchema(_WorkspaceChildSchema):
+    """Schema for pipeline streams — excludes the ``properties`` field.
+
+    Pipeline properties can contain sensitive data and there is currently no
+    reliable way to obfuscate them, so the field is omitted until that
+    capability exists.  See https://github.com/MeltanoLabs/tap-meltano-cloud/issues/15
+    """
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"].pop("properties", None)
+        return schema
