@@ -52,6 +52,7 @@ test = [
   "pytest>=9",
   "pytest-github-actions-annotate-failures>=0.3",
   "singer-sdk[testing]",
+  "syrupy>=5.1.0",
 ]
 typing = [
   "mypy>=1.19.1",
@@ -75,6 +76,10 @@ ignore = [
 select = [ "ALL" ]
 [tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+  "S101",  # assert is used by pytest
+]
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
