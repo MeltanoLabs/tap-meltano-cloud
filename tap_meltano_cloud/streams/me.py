@@ -5,9 +5,15 @@ from __future__ import annotations
 import sys
 from typing import TYPE_CHECKING, Any
 
-from singer_sdk import StreamSchema
-
-from .base import OPENAPI_SCHEMA, MeltanoCloudStream, _WorkspaceChildSchema
+from .base import (
+    OPENAPI_SCHEMA,
+    MeltanoCloudStream,
+    _DataComponentSchema,
+    _DataStoreSchema,
+    _PipelineSchema,
+    _WorkspaceChildSchema,
+    _WorkspaceSchema,
+)
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -26,7 +32,7 @@ class WorkspacesStream(MeltanoCloudStream):
     name = "workspaces"
     path = "/workspaces"
     records_jsonpath = "$._embedded.workspaces[*]"
-    schema = StreamSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
+    schema = _WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
 
     @override
     def generate_child_contexts(
@@ -36,6 +42,12 @@ class WorkspacesStream(MeltanoCloudStream):
     ) -> Generator[Context | None, None, None]:
         """Generate child contexts for workspace-scoped streams."""
         yield {"workspaceId": record["id"]}
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("deploymentSecret", None)
+        row.pop("sshPrivateKey", None)
+        return super().post_process(row, context)
 
 
 class _WorkspaceChildStream(MeltanoCloudStream):
@@ -50,7 +62,12 @@ class PipelinesStream(_WorkspaceChildStream):
     name = "pipelines"
     path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="PipelineResource")
+    schema = _PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("properties", None)
+        return super().post_process(row, context)
 
 
 class DatasetsStream(_WorkspaceChildStream):
@@ -86,7 +103,13 @@ class DataStoresStream(_WorkspaceChildStream):
     name = "datastores"
     path = "/workspaces/{workspaceId}/datastores"
     records_jsonpath = "$._embedded.datastores[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+    schema = _DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("jdbcUrl", None)
+        row.pop("properties", None)
+        return super().post_process(row, context)
 
 
 class DataComponentsStream(_WorkspaceChildStream):
@@ -95,4 +118,9 @@ class DataComponentsStream(_WorkspaceChildStream):
     name = "datacomponents"
     path = "/workspaces/{workspaceId}/datacomponents"
     records_jsonpath = "$._embedded.datacomponents[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+    schema = _DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        row.pop("properties", None)
+        return super().post_process(row, context)
