@@ -36,6 +36,10 @@ class _ByWorkspaceStream(MeltanoCloudStream):
         super().__init__(*args, **kwargs)
         self._partitions = [{"workspaceId": wid} for wid in workspace_ids]
 
+    @property
+    @override
+    def partitions(self) -> list[dict]:
+        return self._partitions
 
 class WorkspacesStream(_ByWorkspaceStream):
     """Fetches individual workspaces by ID."""
