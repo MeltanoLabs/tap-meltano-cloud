@@ -68,6 +68,7 @@ class TapMeltanoCloud(Tap):
             return [
                 by_workspace.WorkspacesStream(self, workspace_ids=workspace_ids),
                 by_workspace.PipelinesStream(self, workspace_ids=workspace_ids),
+                by_workspace.PipelineJobsStream(self, workspace_ids=workspace_ids),
                 by_workspace.DatasetsStream(self, workspace_ids=workspace_ids),
                 by_workspace.JobsStream(self, workspace_ids=workspace_ids),
                 by_workspace.ChannelsStream(self, workspace_ids=workspace_ids),
@@ -78,6 +79,7 @@ class TapMeltanoCloud(Tap):
         return [
             me.WorkspacesStream(self),
             me.PipelinesStream(self),
+            me.PipelineJobsStream(self),
             me.DatasetsStream(self),
             me.JobsStream(self),
             me.ChannelsStream(self),
