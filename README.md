@@ -18,6 +18,7 @@ uv tool install git+https://github.com/Matatika/tap-meltano-cloud.git@main
 |:-------|:---------|:------------|
 | `workspaces` | `GET /workspaces` | `id` |
 | `pipelines` | `GET /workspaces/{workspaceId}/pipelines` | `id` |
+| `pipeline_jobs` | `GET /pipelines/{pipelineId}/jobs` | `id` |
 | `datasets` | `GET /workspaces/{workspaceId}/datasets` | `id` |
 | `jobs` | `GET /workspaces/{workspaceId}/jobs` | `id` |
 | `channels` | `GET /workspaces/{workspaceId}/channels` | `id` |

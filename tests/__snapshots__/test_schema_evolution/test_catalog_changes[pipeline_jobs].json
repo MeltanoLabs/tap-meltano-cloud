@@ -141,6 +141,15 @@
       }
     },
     {
+      "breadcrumb": [
+        "properties",
+        "pipelineId"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
       "breadcrumb": [],
       "metadata": {
         "inclusion": "available",
@@ -275,6 +284,10 @@
           "null"
         ]
       },
+      "pipelineId": {
+        "format": "uuid",
+        "type": "string"
+      },
       "startTime": {
         "format": "date-time",
         "type": [
@@ -307,6 +320,6 @@
     },
     "type": "object"
   },
-  "stream": "jobs",
-  "tap_stream_id": "jobs"
+  "stream": "pipeline_jobs",
+  "tap_stream_id": "pipeline_jobs"
 }

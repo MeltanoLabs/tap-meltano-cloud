@@ -65,7 +65,7 @@ class MeltanoCloudStream(RESTStream[Any]):
         return None
 
 
-class _WorkspaceChildSchema(StreamSchema[str]):
+class WorkspaceChildSchema(StreamSchema[str]):
     """Schema for all workspace-scoped streams."""
 
     @override
@@ -73,12 +73,12 @@ class _WorkspaceChildSchema(StreamSchema[str]):
         schema = super().get_stream_schema(*args, **kwargs)
         schema["properties"]["workspaceId"] = {
             "format": "uuid",
-            "type": ["string", "null"],
+            "type": "string",
         }
         return schema
 
 
-class _WorkspaceSchema(StreamSchema[str]):
+class WorkspaceSchema(StreamSchema[str]):
     """Schema for workspace streams — excludes sensitive fields.
 
     ``deploymentSecret`` and ``sshPrivateKey`` can contain sensitive credentials,
@@ -94,7 +94,7 @@ class _WorkspaceSchema(StreamSchema[str]):
         return schema
 
 
-class _PipelineSchema(_WorkspaceChildSchema):
+class PipelineSchema(WorkspaceChildSchema):
     """Schema for pipeline streams — excludes the ``properties`` field.
 
     Pipeline properties can contain sensitive data and there is currently no
@@ -109,7 +109,20 @@ class _PipelineSchema(_WorkspaceChildSchema):
         return schema
 
 
-class _DataComponentSchema(_WorkspaceChildSchema):
+class PipelineJobSchema(WorkspaceChildSchema):
+    """Schema for pipeline job streams."""
+
+    @override
+    def get_stream_schema(self, *args: Any, **kwargs: Any) -> dict:
+        schema = super().get_stream_schema(*args, **kwargs)
+        schema["properties"]["pipelineId"] = {
+            "format": "uuid",
+            "type": "string",
+        }
+        return schema
+
+
+class DataComponentSchema(WorkspaceChildSchema):
     """Schema for data component streams — excludes the ``properties`` field.
 
     Data component properties can contain sensitive data and there is currently no
@@ -124,7 +137,7 @@ class _DataComponentSchema(_WorkspaceChildSchema):
         return schema
 
 
-class _DataStoreSchema(_WorkspaceChildSchema):
+class DataStoreSchema(WorkspaceChildSchema):
     """Schema for data store streams — excludes sensitive fields.
 
     ``properties`` and ``jdbcUrl`` can contain sensitive data (credentials,

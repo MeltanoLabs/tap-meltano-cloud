@@ -5,14 +5,17 @@ from __future__ import annotations
 import sys
 from typing import TYPE_CHECKING, Any
 
+from singer_sdk import StreamSchema
+
 from .base import (
     OPENAPI_SCHEMA,
     MeltanoCloudStream,
-    _DataComponentSchema,
-    _DataStoreSchema,
-    _PipelineSchema,
-    _WorkspaceChildSchema,
-    _WorkspaceSchema,
+    DataComponentSchema,
+    DataStoreSchema,
+    PipelineSchema,
+    PipelineJobSchema,
+    WorkspaceChildSchema,
+    WorkspaceSchema,
 )
 
 if sys.version_info >= (3, 12):
@@ -41,13 +44,14 @@ class _ByWorkspaceStream(MeltanoCloudStream):
     def partitions(self) -> list[dict]:
         return self._partitions
 
+
 class WorkspacesStream(_ByWorkspaceStream):
     """Fetches individual workspaces by ID."""
 
     name = "workspaces"
     path = "/workspaces/{workspaceId}"
     records_jsonpath = "$"
-    schema = _WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
+    schema = WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
@@ -62,12 +66,30 @@ class PipelinesStream(_ByWorkspaceStream):
     name = "pipelines"
     path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
-    schema = _PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
+    schema = PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         row.pop("properties", None)
         return super().post_process(row, context)
+
+    def get_child_context(self, record: dict, context: Context | None = None) -> Context:
+        """Get child context for a pipeline record."""
+        return {
+            "pipelineId": record["id"],
+            "workspaceId": context["workspaceId"] if context else None,
+        }
+
+
+class PipelineJobsStream(_ByWorkspaceStream):
+    """Jobs stream."""
+
+    name = "pipeline_jobs"
+    path = "/pipelines/{pipelineId}/jobs"
+    records_jsonpath = "$._embedded.jobs[*]"
+    schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
+
+    parent_stream_type = PipelinesStream
 
 
 class DatasetsStream(_ByWorkspaceStream):
@@ -76,7 +98,7 @@ class DatasetsStream(_ByWorkspaceStream):
     name = "datasets"
     path = "/workspaces/{workspaceId}/datasets"
     records_jsonpath = "$._embedded.datasets[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
 
 
 class JobsStream(_ByWorkspaceStream):
@@ -85,7 +107,7 @@ class JobsStream(_ByWorkspaceStream):
     name = "jobs"
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
 
 class ChannelsStream(_ByWorkspaceStream):
@@ -94,7 +116,7 @@ class ChannelsStream(_ByWorkspaceStream):
     name = "channels"
     path = "/workspaces/{workspaceId}/channels"
     records_jsonpath = "$._embedded.channels[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="ChannelResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="ChannelResource")
 
 
 class DataStoresStream(_ByWorkspaceStream):
@@ -103,7 +125,7 @@ class DataStoresStream(_ByWorkspaceStream):
     name = "datastores"
     path = "/workspaces/{workspaceId}/datastores"
     records_jsonpath = "$._embedded.datastores[*]"
-    schema = _DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+    schema = DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
@@ -118,7 +140,7 @@ class DataComponentsStream(_ByWorkspaceStream):
     name = "datacomponents"
     path = "/workspaces/{workspaceId}/datacomponents"
     records_jsonpath = "$._embedded.datacomponents[*]"
-    schema = _DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+    schema = DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:

@@ -7,12 +7,13 @@ from typing import TYPE_CHECKING, Any
 
 from .base import (
     OPENAPI_SCHEMA,
+    DataComponentSchema,
+    DataStoreSchema,
     MeltanoCloudStream,
-    _DataComponentSchema,
-    _DataStoreSchema,
-    _PipelineSchema,
-    _WorkspaceChildSchema,
-    _WorkspaceSchema,
+    PipelineJobSchema,
+    PipelineSchema,
+    WorkspaceChildSchema,
+    WorkspaceSchema,
 )
 
 if sys.version_info >= (3, 12):
@@ -32,7 +33,7 @@ class WorkspacesStream(MeltanoCloudStream):
     name = "workspaces"
     path = "/workspaces"
     records_jsonpath = "$._embedded.workspaces[*]"
-    schema = _WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
+    schema = WorkspaceSchema(OPENAPI_SCHEMA, key="WorkspaceResource")
 
     @override
     def generate_child_contexts(
@@ -62,12 +63,30 @@ class PipelinesStream(_WorkspaceChildStream):
     name = "pipelines"
     path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
-    schema = _PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
+    schema = PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         row.pop("properties", None)
         return super().post_process(row, context)
+
+    def get_child_context(self, record: dict, context: Context | None = None) -> Context:
+        """Get child context for a pipeline record."""
+        return {
+            "pipelineId": record["id"],
+            "workspaceId": context["workspaceId"] if context else None,
+        }
+
+
+class PipelineJobsStream(_WorkspaceChildStream):
+    """Jobs stream."""
+
+    name = "pipeline_jobs"
+    path = "/pipelines/{pipelineId}/jobs"
+    records_jsonpath = "$._embedded.jobs[*]"
+    schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
+
+    parent_stream_type = PipelinesStream  # type: ignore[assignment]
 
 
 class DatasetsStream(_WorkspaceChildStream):
@@ -76,7 +95,7 @@ class DatasetsStream(_WorkspaceChildStream):
     name = "datasets"
     path = "/workspaces/{workspaceId}/datasets"
     records_jsonpath = "$._embedded.datasets[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
 
 
 class JobsStream(_WorkspaceChildStream):
@@ -85,7 +104,7 @@ class JobsStream(_WorkspaceChildStream):
     name = "jobs"
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
 
 class ChannelsStream(_WorkspaceChildStream):
@@ -94,7 +113,7 @@ class ChannelsStream(_WorkspaceChildStream):
     name = "channels"
     path = "/workspaces/{workspaceId}/channels"
     records_jsonpath = "$._embedded.channels[*]"
-    schema = _WorkspaceChildSchema(OPENAPI_SCHEMA, key="ChannelResource")
+    schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="ChannelResource")
 
 
 class DataStoresStream(_WorkspaceChildStream):
@@ -103,7 +122,7 @@ class DataStoresStream(_WorkspaceChildStream):
     name = "datastores"
     path = "/workspaces/{workspaceId}/datastores"
     records_jsonpath = "$._embedded.datastores[*]"
-    schema = _DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
+    schema = DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
@@ -118,7 +137,7 @@ class DataComponentsStream(_WorkspaceChildStream):
     name = "datacomponents"
     path = "/workspaces/{workspaceId}/datacomponents"
     records_jsonpath = "$._embedded.datacomponents[*]"
-    schema = _DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
+    schema = DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:

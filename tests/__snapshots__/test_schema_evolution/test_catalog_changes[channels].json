@@ -356,10 +356,7 @@
       },
       "workspaceId": {
         "format": "uuid",
-        "type": [
-          "string",
-          "null"
-        ]
+        "type": "string"
       }
     },
     "required": [
