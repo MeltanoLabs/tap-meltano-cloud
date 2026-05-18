@@ -23,7 +23,10 @@ plugins:
     settings:
     - name: auth_token
       label: Auth Token
-      description: The token to authenticate against the API service
+      description: >-
+        Bearer token for authenticating against the API.
+        Required when not using OAuth2 client credentials
+        (client_id + client_secret + oauth_token_url).
       sensitive: true
 
     - name: workspace_ids
