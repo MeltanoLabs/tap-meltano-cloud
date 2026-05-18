@@ -55,8 +55,8 @@ test = [
   "syrupy>=5.1",
 ]
 typing = [
-  "mypy>=1.19.1",
-  "ty>=0.0.34",
+  "mypy>=2.0.0",
+  "ty>=0.0.35",
   "types-requests",
 ]
 
