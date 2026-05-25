@@ -38,7 +38,7 @@ name = "Edgar Ramírez-Mondragón"
 email = "emondragon@meltano.com"
 [project.optional-dependencies]
 s3 = [
-  "s3fs>=2026.4.0",
+  "s3fs>=2026.4",
 ]
 [project.scripts]
 # CLI declaration
@@ -55,7 +55,7 @@ test = [
   "syrupy>=5.1",
 ]
 typing = [
-  "mypy>=2.0.0",
+  "mypy>=2",
   "ty>=0.0.35",
 ]
 

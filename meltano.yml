@@ -38,6 +38,11 @@ plugins:
         When omitted, all workspaces accessible to the authenticated user are
         discovered and synced.
 
+    - name: api_url
+      label: API URL
+      description: Base URL for the Meltano Cloud API.
+      value: https://app.matatika.com/api
+
   loaders:
   - name: target-jsonl
     variant: andyh1203

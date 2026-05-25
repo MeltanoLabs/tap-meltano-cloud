@@ -1,7 +1,6 @@
 """Stream type classes for tap-meltano-cloud."""
 
 from __future__ import annotations
-from singer_sdk.helpers.types import Record
 
 import http
 import sys
@@ -9,7 +8,6 @@ from importlib import resources
 from typing import TYPE_CHECKING, Any
 
 import singer_sdk.typing as th
-
 from singer_sdk import OpenAPISchema, Stream, StreamSchema
 from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.pagination import BaseHATEOASPaginator
@@ -26,7 +24,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
 
     import requests
-    from singer_sdk.helpers.types import Context
+    from singer_sdk.helpers.types import Context, Record
     from singer_sdk.pagination import BaseAPIPaginator
 
 OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
