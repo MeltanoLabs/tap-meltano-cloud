@@ -18,13 +18,27 @@ if TYPE_CHECKING:
     from singer_sdk.helpers.types import Context
 
 
+class AccountsStream(base.AccountsMixin, base.MeltanoCloudStream):
+    """Accounts stream — top-level parent for workspaces."""
+
+    @override
+    def get_child_context(
+        self,
+        record: dict[str, Any],
+        context: Context | None,
+    ) -> dict[str, Any]:
+        """Pass accountId down to child WorkspacesStream."""
+        return {"accountId": record["id"]}
+
+
 class WorkspacesStream(base.MeltanoCloudStream):
-    """Workspaces stream."""
+    """Workspaces stream — child of AccountsStream."""
 
     name = "workspaces"
-    path = "/workspaces"
+    path = "/accounts/{accountId}/workspaces"
     records_jsonpath = "$._embedded.workspaces[*]"
     schema = base.WorkspaceSchema(base.OPENAPI_SCHEMA, key="WorkspaceResource")
+    parent_stream_type = AccountsStream
 
     @override
     def generate_child_contexts(
@@ -33,12 +47,13 @@ class WorkspacesStream(base.MeltanoCloudStream):
         context: Context | None,
     ) -> Generator[Context | None, None, None]:
         """Generate child contexts for workspace-scoped streams."""
-        yield {"workspaceId": record["id"]}
+        yield {"workspaceId": record["id"], "accountId": context["accountId"] if context else None}
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         row.pop("deploymentSecret", None)
         row.pop("sshPrivateKey", None)
+        row["accountId"] = context["accountId"] if context else None
         return super().post_process(row, context)
 
 

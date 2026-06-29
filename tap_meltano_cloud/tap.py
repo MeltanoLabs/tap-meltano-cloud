@@ -66,6 +66,7 @@ class TapMeltanoCloud(Tap):
 
         if workspace_ids:
             return [
+                by_workspace.AccountsStream(self),
                 by_workspace.WorkspacesStream(self, workspace_ids=workspace_ids),
                 by_workspace.PipelinesStream(self, workspace_ids=workspace_ids),
                 by_workspace.PipelineJobsStream(self, workspace_ids=workspace_ids),
@@ -78,6 +79,7 @@ class TapMeltanoCloud(Tap):
             ]
 
         return [
+            me.AccountsStream(self),
             me.WorkspacesStream(self),
             me.PipelinesStream(self),
             me.PipelineJobsStream(self),

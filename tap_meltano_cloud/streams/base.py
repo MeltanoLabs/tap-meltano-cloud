@@ -92,6 +92,10 @@ class WorkspaceChildSchema(StreamSchema[str]):
         return schema
 
 
+class AccountSchema(StreamSchema[str]):
+    """Schema for account streams."""
+
+
 class WorkspaceSchema(StreamSchema[str]):
     """Schema for workspace streams — excludes sensitive fields.
 
@@ -105,6 +109,7 @@ class WorkspaceSchema(StreamSchema[str]):
         schema = super().get_stream_schema(*args, **kwargs)
         schema["properties"].pop("deploymentSecret", None)
         schema["properties"].pop("sshPrivateKey", None)
+        schema["properties"]["accountId"] = {"format": "uuid", "type": ["string", "null"]}
         return schema
 
 
@@ -165,6 +170,15 @@ class DataStoreSchema(WorkspaceChildSchema):
         schema["properties"].pop("jdbcUrl", None)
         schema["properties"].pop("properties", None)
         return schema
+
+
+class AccountsMixin(Stream):
+    """Shared logic for accounts streams across both workspace-access modes."""
+
+    name = "accounts"
+    path = "/accounts"
+    records_jsonpath = "$._embedded.accounts[*]"
+    schema = AccountSchema(OPENAPI_SCHEMA, key="AccountResource")
 
 
 class PipelinesMixin(Stream):

@@ -16,6 +16,10 @@ if TYPE_CHECKING:
     from singer_sdk.helpers.types import Context
 
 
+class AccountsStream(base.AccountsMixin, base.MeltanoCloudStream):
+    """Accounts stream — top-level, independent of workspace partitions."""
+
+
 class _ByWorkspaceStream(base.MeltanoCloudStream):
     """Base class for workspace-scoped streams driven by explicit workspace IDs.
 
