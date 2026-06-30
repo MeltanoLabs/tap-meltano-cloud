@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Any
 import singer_sdk.typing as th
 from singer_sdk import OpenAPISchema, Stream, StreamSchema
 from singer_sdk.authenticators import BearerTokenAuthenticator
+from singer_sdk.exceptions import FatalAPIError
 from singer_sdk.pagination import BaseHATEOASPaginator
 from singer_sdk.streams import RESTStream
 
@@ -77,6 +78,20 @@ class MeltanoCloudStream(RESTStream[Any]):
         # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
         # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
         return None
+
+    def get_records(self, context: Context | None) -> Iterable[dict]:
+        """Yield records, skipping deleted/inaccessible workspaces on 404."""
+        try:
+            yield from super().get_records(context)
+        except FatalAPIError as e:
+            if "404" in str(e) and context and "workspaceId" in context:
+                self.logger.warning(
+                    "Workspace %s is inaccessible (404) for stream '%s' — skipping.",
+                    context["workspaceId"],
+                    self.name,
+                )
+                return
+            raise
 
 
 class WorkspaceChildSchema(StreamSchema[str]):
@@ -200,6 +215,7 @@ class PipelinesMixin(Stream):
             "pipelineId": record["id"],
             "workspaceId": context["workspaceId"] if context else None,
         }
+
 
 
 class PipelineJobsMixin(Stream):
