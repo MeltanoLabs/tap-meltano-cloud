@@ -80,17 +80,25 @@ class MeltanoCloudStream(RESTStream[Any]):
         return None
 
     def get_records(self, context: Context | None) -> Iterable[dict]:
-        """Yield records, skipping deleted/inaccessible workspaces on 404."""
+        """Yield records, skipping inaccessible parent entities on 404."""
         try:
             yield from super().get_records(context)
         except FatalAPIError as e:
-            if "404" in str(e) and context and "workspaceId" in context:
-                self.logger.warning(
-                    "Workspace %s is inaccessible (404) for stream '%s' — skipping.",
-                    context["workspaceId"],
-                    self.name,
-                )
-                return
+            if "404" in str(e) and context:
+                if "workspaceId" in context:
+                    self.logger.warning(
+                        "Workspace %s is inaccessible (404) for stream '%s' — skipping.",
+                        context["workspaceId"],
+                        self.name,
+                    )
+                    return
+                if "accountId" in context:
+                    self.logger.warning(
+                        "Account %s is inaccessible (404) for stream '%s' — skipping.",
+                        context["accountId"],
+                        self.name,
+                    )
+                    return
             raise
 
 
