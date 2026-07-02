@@ -9125,7 +9125,6 @@
             },
             "AccountResource": {
                 "required": [
-                    "company",
                     "ownerEmail"
                 ],
                 "type": "object",
