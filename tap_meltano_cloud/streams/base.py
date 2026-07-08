@@ -13,6 +13,7 @@ from singer_sdk.authenticators import BearerTokenAuthenticator
 from singer_sdk.exceptions import FatalAPIError
 from singer_sdk.pagination import BaseHATEOASPaginator
 from singer_sdk.streams import RESTStream
+from singer_sdk.streams.rest import HTTPRequest, PageContext
 
 from tap_meltano_cloud import openapi
 
@@ -31,8 +32,6 @@ if TYPE_CHECKING:
 OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
 
 
-# TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-# https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
 class MeltanoCloudPaginator(BaseHATEOASPaginator):
     """Paginator for MeltanoCloud Spring HATEOAS paged responses."""
 
@@ -67,8 +66,6 @@ class MeltanoCloudPaginator(BaseHATEOASPaginator):
 class MeltanoCloudStream(RESTStream[Any]):
     """MeltanoCloud stream class."""
 
-    # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-    # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
     page_size = 50
 
     records_jsonpath = "$[*]"
@@ -94,6 +91,17 @@ class MeltanoCloudStream(RESTStream[Any]):
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
         return BearerTokenAuthenticator(token=self.config["auth_token"])
+
+    @override
+    def get_http_request(self, *, page: PageContext) -> HTTPRequest:
+        """Use the HATEOAS next URL directly when paginating."""
+        if page.next_page_token:
+            return HTTPRequest(
+                url=page.next_page_token.geturl(),
+                method=self.http_method,
+                headers=self.http_headers,
+            )
+        return super().get_http_request(page=page)
 
     @override
     def get_new_paginator(self) -> BaseAPIPaginator | None:
