@@ -36,9 +36,32 @@ OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
 class MeltanoCloudPaginator(BaseHATEOASPaginator):
     """Paginator for MeltanoCloud Spring HATEOAS paged responses."""
 
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self._seen_page_numbers: set[int] = set()
+
     @override
     def get_next_url(self, response: requests.Response) -> str | None:
-        return response.json().get("_links", {}).get("next", {}).get("href")
+        data = response.json()
+        if not isinstance(data, dict):
+            return None
+
+        page = data.get("page", {})
+        number = page.get("number", 0)
+        total_pages = page.get("totalPages", 1)
+
+        # If we've already processed this page number the API is repeating itself
+        if number in self._seen_page_numbers:
+            return None
+        self._seen_page_numbers.add(number)
+
+        if number >= total_pages - 1:
+            return None
+
+        next_href = data.get("_links", {}).get("next", {}).get("href")
+        if not next_href or next_href == response.url:
+            return None
+        return next_href
 
 
 class MeltanoCloudStream(RESTStream[Any]):
@@ -75,9 +98,7 @@ class MeltanoCloudStream(RESTStream[Any]):
     @override
     def get_new_paginator(self) -> BaseAPIPaginator | None:
         """Return a new paginator instance."""
-        # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-        # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
-        return None
+        return MeltanoCloudPaginator()
 
     def get_records(self, context: Context | None) -> Iterable[dict]:
         """Yield records, skipping inaccessible parent entities on 404."""
@@ -132,7 +153,7 @@ class WorkspaceSchema(StreamSchema[str]):
         schema = super().get_stream_schema(*args, **kwargs)
         schema["properties"].pop("deploymentSecret", None)
         schema["properties"].pop("sshPrivateKey", None)
-        schema["properties"]["accountId"] = {"format": "uuid", "type": ["string", "null"]}
+        schema["properties"]["accountId"] = {"type": ["string", "null"]}
         return schema
 
 

@@ -233,7 +233,6 @@
       }
     },
     "required": [
-      "company",
       "ownerEmail"
     ],
     "type": "object"

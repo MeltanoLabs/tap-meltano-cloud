@@ -276,7 +276,6 @@
         ]
       },
       "accountId": {
-        "format": "uuid",
         "type": [
           "string",
           "null"
