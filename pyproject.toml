@@ -2,7 +2,7 @@
 build-backend = "hatchling.build"
 requires = [
   "hatch-vcs>=0.5",
-  "hatchling>=1.29,<2",
+  "hatchling>=1.31.0,<2",
 ]
 
 [project]
@@ -49,14 +49,14 @@ dev = [
   { include-group = "test" },
 ]
 test = [
-  "pytest>=9",
-  "pytest-github-actions-annotate-failures>=0.3",
+  "pytest>=9.1.1",
+  "pytest-github-actions-annotate-failures>=0.4.2",
   "singer-sdk[testing]",
-  "syrupy>=5.1",
+  "syrupy>=5.5.3",
 ]
 typing = [
-  "mypy>=2",
-  "ty>=0.0.35",
+  "mypy>=2.3.0",
+  "ty>=0.0.59",
 ]
 
 [tool.hatch.version]
