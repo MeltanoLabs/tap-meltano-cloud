@@ -86,15 +86,15 @@ convention = "google"
 table_format = "long"
 
 [tool.mypy]
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unreachable = true
 enable_error_code = [
   "ignore-without-code",
   "redundant-expr",
   "truthy-bool",
 ]
-warn_redundant_casts = true
-warn_unreachable = true
 warn_unused_configs = true
-warn_unused_ignores = true
 
 [tool.ty.rules]
 unused-type-ignore-comment = "ignore"
@@ -138,13 +138,12 @@ commands = [
   [ "mypy", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
   [ "ty", "check", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
 ]
-
 [tool.tox.env_run_base]
-description = "run tests on Python {env_name}"
 runner = "uv-venv-lock-runner"
+description = "run tests on Python {env_name}"
+dependency_groups = [ "test" ]
 pass_env = [
   "GITHUB_*",
   "TAP_MELTANO_CLOUD_*",
 ]
-dependency_groups = [ "test" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
