@@ -175,11 +175,14 @@ class PipelinesMixin(Stream):
     records_jsonpath = "$._embedded.pipelines[*]"
     schema = PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
 
+    @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         """Update the pipeline record."""
         row.pop("properties", None)
+        row.pop("_embedded", None)
         return super().post_process(row, context)
 
+    @override
     def get_child_context(self, record: dict, context: Context | None = None) -> dict:
         """Get child context for a pipeline record."""
         return {
@@ -195,6 +198,12 @@ class PipelineJobsMixin(Stream):
     path = "/pipelines/{pipelineId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
     schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        """Update the pipeline job record."""
+        row.pop("_embedded", None)
+        return super().post_process(row, context)
 
 
 class PipelineMetricsMixin(Stream):
@@ -221,8 +230,8 @@ class PipelineMetricsMixin(Stream):
 
     @override
     def post_process(self, row: Record, context: Context | None = None) -> Record | None:
-        row["job_created_at"] = row["metrics.job-created"]
-        row["value"] = row["metrics.value"]
+        row["job_created_at"] = row.pop("metrics.job-created")
+        row["value"] = row.pop("metrics.value")
         return super().post_process(row, context)
 
     @property
@@ -243,6 +252,12 @@ class DatasetsMixin(Stream):
     records_jsonpath = "$._embedded.datasets[*]"
     schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="DatasetResource")
 
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        """Update the dataset record."""
+        row.pop("_embedded", None)
+        return super().post_process(row, context)
+
 
 class JobsMixin(Stream):
     """Shared logic for jobs streams across both workspace-access modes."""
@@ -251,6 +266,12 @@ class JobsMixin(Stream):
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
     schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
+
+    @override
+    def post_process(self, row: dict, context: Context | None = None) -> dict | None:
+        """Update the job record."""
+        row.pop("_embedded", None)
+        return super().post_process(row, context)
 
 
 class ChannelsMixin(Stream):
@@ -270,6 +291,7 @@ class DataStoresMixin(Stream):
     records_jsonpath = "$._embedded.datastores[*]"
     schema = DataStoreSchema(OPENAPI_SCHEMA, key="DataStoreResource")
 
+    @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         """Update the data store record."""
         row.pop("jdbcUrl", None)
@@ -285,7 +307,9 @@ class DataComponentsMixin(Stream):
     records_jsonpath = "$._embedded.datacomponents[*]"
     schema = DataComponentSchema(OPENAPI_SCHEMA, key="DataComponentResource")
 
+    @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         """Update the data component record."""
         row.pop("properties", None)
+        row.pop("_embedded", None)
         return super().post_process(row, context)

@@ -96,35 +96,6 @@
     {
       "breadcrumb": [
         "properties",
-        "_embedded"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "_embedded",
-        "properties",
-        "embeddedWrappers"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "_links"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
         "logoUrl"
       ],
       "metadata": {
@@ -143,7 +114,7 @@
     {
       "breadcrumb": [
         "properties",
-        "draft"
+        "managed"
       ],
       "metadata": {
         "inclusion": "available"
@@ -152,7 +123,7 @@
     {
       "breadcrumb": [
         "properties",
-        "managed"
+        "draft"
       ],
       "metadata": {
         "inclusion": "available"
@@ -288,6 +259,19 @@
         "workspace",
         "properties",
         "pipelinesImage"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "meltanoVersion"
       ],
       "metadata": {
         "inclusion": "available"
@@ -506,7 +490,7 @@
         "properties",
         "account",
         "properties",
-        "ownerProfiles"
+        "adminProfiles"
       ],
       "metadata": {
         "inclusion": "available"
@@ -809,36 +793,6 @@
         "properties",
         "defaultDataStore",
         "properties",
-        "settings"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "fromDataPlugin",
-        "properties",
-        "workspace",
-        "properties",
-        "defaultDataStore",
-        "properties",
-        "commands"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "fromDataPlugin",
-        "properties",
-        "workspace",
-        "properties",
-        "defaultDataStore",
-        "properties",
         "propertiesWithPrefix"
       ],
       "metadata": {
@@ -855,6 +809,36 @@
         "defaultDataStore",
         "properties",
         "propertiesWithDefault"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "defaultDataStore",
+        "properties",
+        "settings"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "defaultDataStore",
+        "properties",
+        "commands"
       ],
       "metadata": {
         "inclusion": "available"
@@ -1077,36 +1061,6 @@
         "properties",
         "stateDataStore",
         "properties",
-        "settings"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "fromDataPlugin",
-        "properties",
-        "workspace",
-        "properties",
-        "stateDataStore",
-        "properties",
-        "commands"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "fromDataPlugin",
-        "properties",
-        "workspace",
-        "properties",
-        "stateDataStore",
-        "properties",
         "propertiesWithPrefix"
       ],
       "metadata": {
@@ -1123,6 +1077,36 @@
         "stateDataStore",
         "properties",
         "propertiesWithDefault"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "stateDataStore",
+        "properties",
+        "settings"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "stateDataStore",
+        "properties",
+        "commands"
       ],
       "metadata": {
         "inclusion": "available"
@@ -1344,6 +1328,19 @@
         "workspace",
         "properties",
         "managed"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
+        "fromDataPlugin",
+        "properties",
+        "workspace",
+        "properties",
+        "settings"
       ],
       "metadata": {
         "inclusion": "available"
@@ -1598,7 +1595,7 @@
         "properties",
         "fromDataPlugin",
         "properties",
-        "docs"
+        "fqn"
       ],
       "metadata": {
         "inclusion": "available"
@@ -1609,7 +1606,7 @@
         "properties",
         "fromDataPlugin",
         "properties",
-        "fqn"
+        "docs"
       ],
       "metadata": {
         "inclusion": "available"
@@ -1640,6 +1637,15 @@
     {
       "breadcrumb": [
         "properties",
+        "_links"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
         "workspaceId"
       ],
       "metadata": {
@@ -1661,46 +1667,6 @@
   "replication_method": "FULL_TABLE",
   "schema": {
     "properties": {
-      "_embedded": {
-        "properties": {
-          "embeddedWrappers": {
-            "items": {
-              "properties": {
-                "collectionValue": {
-                  "type": [
-                    "boolean",
-                    "null"
-                  ]
-                },
-                "rel": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "value": {
-                  "type": [
-                    "object",
-                    "null"
-                  ]
-                }
-              },
-              "type": [
-                "object",
-                "null"
-              ]
-            },
-            "type": [
-              "array",
-              "null"
-            ]
-          }
-        },
-        "type": [
-          "object",
-          "null"
-        ]
-      },
       "_links": {
         "additionalProperties": {
           "properties": {
@@ -2033,6 +1999,12 @@
                     "null"
                   ]
                 },
+                "encrypted": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
                 "env": {
                   "type": [
                     "string",
@@ -2139,6 +2111,12 @@
                     "null"
                   ]
                 },
+                "valueHint": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
                 "valuePostProcessor": {
                   "type": [
                     "string",
@@ -2196,6 +2174,13 @@
             "properties": {
               "account": {
                 "properties": {
+                  "adminProfiles": {
+                    "items": {},
+                    "type": [
+                      "array",
+                      "null"
+                    ]
+                  },
                   "company": {
                     "type": [
                       "string",
@@ -2264,13 +2249,6 @@
                     ]
                   },
                   "ownerProfile": {},
-                  "ownerProfiles": {
-                    "items": {},
-                    "type": [
-                      "array",
-                      "null"
-                    ]
-                  },
                   "workspaces": {
                     "items": {},
                     "type": [
@@ -2287,6 +2265,102 @@
               "administrators": {
                 "items": {
                   "properties": {
+                    "adminAccounts": {
+                      "items": {
+                        "properties": {
+                          "adminProfiles": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
+                          "company": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "lastModified": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "marketplaceId": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "maxClients": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxRows": {
+                            "format": "int64",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxWorkspaces": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesPerMonth": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesUsed": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "ownerProfile": {},
+                          "workspaces": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          }
+                        },
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
                     "administeredWorkspaces": {
                       "items": {},
                       "type": [
@@ -2847,6 +2921,12 @@
                                         "null"
                                       ]
                                     },
+                                    "encrypted": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
                                     "env": {
                                       "type": [
                                         "string",
@@ -2948,6 +3028,12 @@
                                       ]
                                     },
                                     "value": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "valueHint": {
                                       "type": [
                                         "string",
                                         "null"
@@ -5213,6 +5299,12 @@
                                                   "null"
                                                 ]
                                               },
+                                              "encrypted": {
+                                                "type": [
+                                                  "boolean",
+                                                  "null"
+                                                ]
+                                              },
                                               "env": {
                                                 "type": [
                                                   "string",
@@ -5314,6 +5406,12 @@
                                                 ]
                                               },
                                               "value": {
+                                                "type": [
+                                                  "string",
+                                                  "null"
+                                                ]
+                                              },
+                                              "valueHint": {
                                                 "type": [
                                                   "string",
                                                   "null"
@@ -5608,6 +5706,12 @@
                                                       "null"
                                                     ]
                                                   },
+                                                  "encrypted": {
+                                                    "type": [
+                                                      "boolean",
+                                                      "null"
+                                                    ]
+                                                  },
                                                   "env": {
                                                     "type": [
                                                       "string",
@@ -5709,6 +5813,12 @@
                                                     ]
                                                   },
                                                   "value": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "valueHint": {
                                                     "type": [
                                                       "string",
                                                       "null"
@@ -6819,6 +6929,12 @@
                                             "null"
                                           ]
                                         },
+                                        "encrypted": {
+                                          "type": [
+                                            "boolean",
+                                            "null"
+                                          ]
+                                        },
                                         "env": {
                                           "type": [
                                             "string",
@@ -6920,6 +7036,12 @@
                                           ]
                                         },
                                         "value": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "valueHint": {
                                           "type": [
                                             "string",
                                             "null"
@@ -7843,102 +7965,6 @@
                         "null"
                       ]
                     },
-                    "ownedAccounts": {
-                      "items": {
-                        "properties": {
-                          "company": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "created": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "id": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "lastModified": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "marketplaceId": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "maxClients": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxRows": {
-                            "format": "int64",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxWorkspaces": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesPerMonth": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesUsed": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "ownerProfile": {},
-                          "ownerProfiles": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          },
-                          "workspaces": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          }
-                        },
-                        "type": [
-                          "object",
-                          "null"
-                        ]
-                      },
-                      "type": [
-                        "array",
-                        "null"
-                      ]
-                    },
                     "phone": {
                       "type": [
                         "string",
@@ -8039,6 +8065,13 @@
                     },
                     "workingAccount": {
                       "properties": {
+                        "adminProfiles": {
+                          "items": {},
+                          "type": [
+                            "array",
+                            "null"
+                          ]
+                        },
                         "company": {
                           "type": [
                             "string",
@@ -8107,13 +8140,6 @@
                           ]
                         },
                         "ownerProfile": {},
-                        "ownerProfiles": {
-                          "items": {},
-                          "type": [
-                            "array",
-                            "null"
-                          ]
-                        },
                         "workspaces": {
                           "items": {},
                           "type": [
@@ -8834,6 +8860,12 @@
                                         "null"
                                       ]
                                     },
+                                    "encrypted": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
                                     "env": {
                                       "type": [
                                         "string",
@@ -8935,6 +8967,12 @@
                                       ]
                                     },
                                     "value": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "valueHint": {
                                       "type": [
                                         "string",
                                         "null"
@@ -9229,6 +9267,12 @@
                                             "null"
                                           ]
                                         },
+                                        "encrypted": {
+                                          "type": [
+                                            "boolean",
+                                            "null"
+                                          ]
+                                        },
                                         "env": {
                                           "type": [
                                             "string",
@@ -9330,6 +9374,12 @@
                                           ]
                                         },
                                         "value": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "valueHint": {
                                           "type": [
                                             "string",
                                             "null"
@@ -10440,6 +10490,12 @@
                                   "null"
                                 ]
                               },
+                              "encrypted": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "env": {
                                 "type": [
                                   "string",
@@ -10541,6 +10597,12 @@
                                 ]
                               },
                               "value": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "valueHint": {
                                 "type": [
                                   "string",
                                   "null"
@@ -11009,6 +11071,12 @@
                               "null"
                             ]
                           },
+                          "encrypted": {
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
                           "env": {
                             "type": [
                               "string",
@@ -11110,6 +11178,12 @@
                             ]
                           },
                           "value": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "valueHint": {
                             "type": [
                               "string",
                               "null"
@@ -12590,6 +12664,12 @@
                                             "null"
                                           ]
                                         },
+                                        "encrypted": {
+                                          "type": [
+                                            "boolean",
+                                            "null"
+                                          ]
+                                        },
                                         "env": {
                                           "type": [
                                             "string",
@@ -12691,6 +12771,12 @@
                                           ]
                                         },
                                         "value": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "valueHint": {
                                           "type": [
                                             "string",
                                             "null"
@@ -12985,6 +13071,12 @@
                                                 "null"
                                               ]
                                             },
+                                            "encrypted": {
+                                              "type": [
+                                                "boolean",
+                                                "null"
+                                              ]
+                                            },
                                             "env": {
                                               "type": [
                                                 "string",
@@ -13086,6 +13178,12 @@
                                               ]
                                             },
                                             "value": {
+                                              "type": [
+                                                "string",
+                                                "null"
+                                              ]
+                                            },
+                                            "valueHint": {
                                               "type": [
                                                 "string",
                                                 "null"
@@ -14196,6 +14294,12 @@
                                       "null"
                                     ]
                                   },
+                                  "encrypted": {
+                                    "type": [
+                                      "boolean",
+                                      "null"
+                                    ]
+                                  },
                                   "env": {
                                     "type": [
                                       "string",
@@ -14297,6 +14401,12 @@
                                     ]
                                   },
                                   "value": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "valueHint": {
                                     "type": [
                                       "string",
                                       "null"
@@ -14967,6 +15077,12 @@
                             "null"
                           ]
                         },
+                        "encrypted": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
                         "env": {
                           "type": [
                             "string",
@@ -15068,6 +15184,12 @@
                           ]
                         },
                         "value": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "valueHint": {
                           "type": [
                             "string",
                             "null"
@@ -15399,6 +15521,12 @@
                                   "null"
                                 ]
                               },
+                              "encrypted": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "env": {
                                 "type": [
                                   "string",
@@ -15500,6 +15628,12 @@
                                 ]
                               },
                               "value": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "valueHint": {
                                 "type": [
                                   "string",
                                   "null"
@@ -16123,6 +16257,12 @@
               "managed": {
                 "type": [
                   "boolean",
+                  "null"
+                ]
+              },
+              "meltanoVersion": {
+                "type": [
+                  "string",
                   "null"
                 ]
               },
@@ -16841,6 +16981,12 @@
                                     "null"
                                   ]
                                 },
+                                "encrypted": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
                                 "env": {
                                   "type": [
                                     "string",
@@ -16942,6 +17088,12 @@
                                   ]
                                 },
                                 "value": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "valueHint": {
                                   "type": [
                                     "string",
                                     "null"
@@ -17236,6 +17388,12 @@
                                         "null"
                                       ]
                                     },
+                                    "encrypted": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
                                     "env": {
                                       "type": [
                                         "string",
@@ -17337,6 +17495,12 @@
                                       ]
                                     },
                                     "value": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "valueHint": {
                                       "type": [
                                         "string",
                                         "null"
@@ -18447,6 +18611,12 @@
                               "null"
                             ]
                           },
+                          "encrypted": {
+                            "type": [
+                              "boolean",
+                              "null"
+                            ]
+                          },
                           "env": {
                             "type": [
                               "string",
@@ -18548,6 +18718,12 @@
                             ]
                           },
                           "value": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "valueHint": {
                             "type": [
                               "string",
                               "null"
@@ -18723,6 +18899,102 @@
               "profiles": {
                 "items": {
                   "properties": {
+                    "adminAccounts": {
+                      "items": {
+                        "properties": {
+                          "adminProfiles": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
+                          "company": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "lastModified": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "marketplaceId": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "maxClients": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxRows": {
+                            "format": "int64",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxWorkspaces": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesPerMonth": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesUsed": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "ownerProfile": {},
+                          "workspaces": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          }
+                        },
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
                     "administeredWorkspaces": {
                       "items": {},
                       "type": [
@@ -19283,6 +19555,12 @@
                                         "null"
                                       ]
                                     },
+                                    "encrypted": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
                                     "env": {
                                       "type": [
                                         "string",
@@ -19384,6 +19662,12 @@
                                       ]
                                     },
                                     "value": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "valueHint": {
                                       "type": [
                                         "string",
                                         "null"
@@ -21649,6 +21933,12 @@
                                                   "null"
                                                 ]
                                               },
+                                              "encrypted": {
+                                                "type": [
+                                                  "boolean",
+                                                  "null"
+                                                ]
+                                              },
                                               "env": {
                                                 "type": [
                                                   "string",
@@ -21750,6 +22040,12 @@
                                                 ]
                                               },
                                               "value": {
+                                                "type": [
+                                                  "string",
+                                                  "null"
+                                                ]
+                                              },
+                                              "valueHint": {
                                                 "type": [
                                                   "string",
                                                   "null"
@@ -22044,6 +22340,12 @@
                                                       "null"
                                                     ]
                                                   },
+                                                  "encrypted": {
+                                                    "type": [
+                                                      "boolean",
+                                                      "null"
+                                                    ]
+                                                  },
                                                   "env": {
                                                     "type": [
                                                       "string",
@@ -22145,6 +22447,12 @@
                                                     ]
                                                   },
                                                   "value": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "valueHint": {
                                                     "type": [
                                                       "string",
                                                       "null"
@@ -23255,6 +23563,12 @@
                                             "null"
                                           ]
                                         },
+                                        "encrypted": {
+                                          "type": [
+                                            "boolean",
+                                            "null"
+                                          ]
+                                        },
                                         "env": {
                                           "type": [
                                             "string",
@@ -23356,6 +23670,12 @@
                                           ]
                                         },
                                         "value": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "valueHint": {
                                           "type": [
                                             "string",
                                             "null"
@@ -24279,102 +24599,6 @@
                         "null"
                       ]
                     },
-                    "ownedAccounts": {
-                      "items": {
-                        "properties": {
-                          "company": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "created": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "id": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "lastModified": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "marketplaceId": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "maxClients": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxRows": {
-                            "format": "int64",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxWorkspaces": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesPerMonth": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesUsed": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "ownerProfile": {},
-                          "ownerProfiles": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          },
-                          "workspaces": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          }
-                        },
-                        "type": [
-                          "object",
-                          "null"
-                        ]
-                      },
-                      "type": [
-                        "array",
-                        "null"
-                      ]
-                    },
                     "phone": {
                       "type": [
                         "string",
@@ -24475,6 +24699,13 @@
                     },
                     "workingAccount": {
                       "properties": {
+                        "adminProfiles": {
+                          "items": {},
+                          "type": [
+                            "array",
+                            "null"
+                          ]
+                        },
                         "company": {
                           "type": [
                             "string",
@@ -24543,13 +24774,6 @@
                           ]
                         },
                         "ownerProfile": {},
-                        "ownerProfiles": {
-                          "items": {},
-                          "type": [
-                            "array",
-                            "null"
-                          ]
-                        },
                         "workspaces": {
                           "items": {},
                           "type": [
@@ -24584,6 +24808,102 @@
               "profilesUsingThisAsDefault": {
                 "items": {
                   "properties": {
+                    "adminAccounts": {
+                      "items": {
+                        "properties": {
+                          "adminProfiles": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          },
+                          "company": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "created": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "lastModified": {
+                            "format": "date-time",
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "marketplaceId": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "maxClients": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxRows": {
+                            "format": "int64",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "maxWorkspaces": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesPerMonth": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "minutesUsed": {
+                            "format": "int32",
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "ownerProfile": {},
+                          "workspaces": {
+                            "items": {},
+                            "type": [
+                              "array",
+                              "null"
+                            ]
+                          }
+                        },
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
                     "administeredWorkspaces": {
                       "items": {},
                       "type": [
@@ -25144,6 +25464,12 @@
                                         "null"
                                       ]
                                     },
+                                    "encrypted": {
+                                      "type": [
+                                        "boolean",
+                                        "null"
+                                      ]
+                                    },
                                     "env": {
                                       "type": [
                                         "string",
@@ -25245,6 +25571,12 @@
                                       ]
                                     },
                                     "value": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "valueHint": {
                                       "type": [
                                         "string",
                                         "null"
@@ -27510,6 +27842,12 @@
                                                   "null"
                                                 ]
                                               },
+                                              "encrypted": {
+                                                "type": [
+                                                  "boolean",
+                                                  "null"
+                                                ]
+                                              },
                                               "env": {
                                                 "type": [
                                                   "string",
@@ -27611,6 +27949,12 @@
                                                 ]
                                               },
                                               "value": {
+                                                "type": [
+                                                  "string",
+                                                  "null"
+                                                ]
+                                              },
+                                              "valueHint": {
                                                 "type": [
                                                   "string",
                                                   "null"
@@ -27905,6 +28249,12 @@
                                                       "null"
                                                     ]
                                                   },
+                                                  "encrypted": {
+                                                    "type": [
+                                                      "boolean",
+                                                      "null"
+                                                    ]
+                                                  },
                                                   "env": {
                                                     "type": [
                                                       "string",
@@ -28006,6 +28356,12 @@
                                                     ]
                                                   },
                                                   "value": {
+                                                    "type": [
+                                                      "string",
+                                                      "null"
+                                                    ]
+                                                  },
+                                                  "valueHint": {
                                                     "type": [
                                                       "string",
                                                       "null"
@@ -29116,6 +29472,12 @@
                                             "null"
                                           ]
                                         },
+                                        "encrypted": {
+                                          "type": [
+                                            "boolean",
+                                            "null"
+                                          ]
+                                        },
                                         "env": {
                                           "type": [
                                             "string",
@@ -29217,6 +29579,12 @@
                                           ]
                                         },
                                         "value": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "valueHint": {
                                           "type": [
                                             "string",
                                             "null"
@@ -30140,102 +30508,6 @@
                         "null"
                       ]
                     },
-                    "ownedAccounts": {
-                      "items": {
-                        "properties": {
-                          "company": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "created": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "id": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "lastModified": {
-                            "format": "date-time",
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "marketplaceId": {
-                            "type": [
-                              "string",
-                              "null"
-                            ]
-                          },
-                          "maxClients": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxRows": {
-                            "format": "int64",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "maxWorkspaces": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesPerMonth": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "minutesUsed": {
-                            "format": "int32",
-                            "type": [
-                              "integer",
-                              "null"
-                            ]
-                          },
-                          "ownerProfile": {},
-                          "ownerProfiles": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          },
-                          "workspaces": {
-                            "items": {},
-                            "type": [
-                              "array",
-                              "null"
-                            ]
-                          }
-                        },
-                        "type": [
-                          "object",
-                          "null"
-                        ]
-                      },
-                      "type": [
-                        "array",
-                        "null"
-                      ]
-                    },
                     "phone": {
                       "type": [
                         "string",
@@ -30336,6 +30608,13 @@
                     },
                     "workingAccount": {
                       "properties": {
+                        "adminProfiles": {
+                          "items": {},
+                          "type": [
+                            "array",
+                            "null"
+                          ]
+                        },
                         "company": {
                           "type": [
                             "string",
@@ -30404,13 +30683,6 @@
                           ]
                         },
                         "ownerProfile": {},
-                        "ownerProfiles": {
-                          "items": {},
-                          "type": [
-                            "array",
-                            "null"
-                          ]
-                        },
                         "workspaces": {
                           "items": {},
                           "type": [
@@ -30518,6 +30790,177 @@
               "schema": {
                 "type": [
                   "string",
+                  "null"
+                ]
+              },
+              "settings": {
+                "items": {
+                  "properties": {
+                    "aliases": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
+                    "description": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "documentation": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "encoding": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "encrypted": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "env": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "hidden": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "kind": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "label": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "options": {
+                      "items": {
+                        "properties": {
+                          "label": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "value": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          }
+                        },
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "type": [
+                        "array",
+                        "null"
+                      ]
+                    },
+                    "order": {
+                      "format": "int32",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "placeholder": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "protected": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "required": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "sensitive": {
+                      "type": [
+                        "boolean",
+                        "null"
+                      ]
+                    },
+                    "tooltip": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "value": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "valueHint": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "valuePostProcessor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "valueProcessor": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "type": [
+                  "array",
                   "null"
                 ]
               },
@@ -30703,6 +31146,12 @@
                             "null"
                           ]
                         },
+                        "encrypted": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        },
                         "env": {
                           "type": [
                             "string",
@@ -30804,6 +31253,12 @@
                           ]
                         },
                         "value": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "valueHint": {
                           "type": [
                             "string",
                             "null"

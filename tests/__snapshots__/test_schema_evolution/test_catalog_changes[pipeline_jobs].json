@@ -105,26 +105,6 @@
     {
       "breadcrumb": [
         "properties",
-        "_embedded"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "_embedded",
-        "properties",
-        "embeddedWrappers"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
         "_links"
       ],
       "metadata": {
@@ -164,46 +144,6 @@
   "replication_method": "FULL_TABLE",
   "schema": {
     "properties": {
-      "_embedded": {
-        "properties": {
-          "embeddedWrappers": {
-            "items": {
-              "properties": {
-                "collectionValue": {
-                  "type": [
-                    "boolean",
-                    "null"
-                  ]
-                },
-                "rel": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "value": {
-                  "type": [
-                    "object",
-                    "null"
-                  ]
-                }
-              },
-              "type": [
-                "object",
-                "null"
-              ]
-            },
-            "type": [
-              "array",
-              "null"
-            ]
-          }
-        },
-        "type": [
-          "object",
-          "null"
-        ]
-      },
       "_links": {
         "additionalProperties": {
           "properties": {
