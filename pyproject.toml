@@ -26,6 +26,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
 ]
 dynamic = [ "version" ]
 dependencies = [
@@ -71,6 +72,7 @@ future-annotations = true
 ignore = [
   "COM812", # missing-trailing-comma
   "FIX",    # allow TODO comments
+  "CPY001", # copyright notice missing
 ]
 select = [ "ALL" ]
 [tool.ruff.lint.flake8-annotations]
@@ -83,18 +85,19 @@ allow-star-arg-any = true
 convention = "google"
 
 [tool.pyproject-fmt]
+max_supported_python = "3.15"
 table_format = "long"
 
 [tool.mypy]
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unreachable = true
 enable_error_code = [
   "ignore-without-code",
   "redundant-expr",
   "truthy-bool",
 ]
-warn_redundant_casts = true
-warn_unreachable = true
 warn_unused_configs = true
-warn_unused_ignores = true
 
 [tool.ty.rules]
 unused-type-ignore-comment = "ignore"
@@ -138,13 +141,12 @@ commands = [
   [ "mypy", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
   [ "ty", "check", { replace = "posargs", default = [ "tap_meltano_cloud", "tests" ], extend = true } ],
 ]
-
 [tool.tox.env_run_base]
-description = "run tests on Python {env_name}"
 runner = "uv-venv-lock-runner"
+description = "run tests on Python {env_name}"
+dependency_groups = [ "test" ]
 pass_env = [
   "GITHUB_*",
   "TAP_MELTANO_CLOUD_*",
 ]
-dependency_groups = [ "test" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]

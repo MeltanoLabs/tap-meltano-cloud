@@ -46,6 +46,9 @@ class WorkspacesStream(_ByWorkspaceStream):
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         row.pop("deploymentSecret", None)
         row.pop("sshPrivateKey", None)
+        row.pop("_embedded", None)
+        row.pop("defaultWorkspace", None)
+        row.pop("workspaceId", None)
         return super().post_process(row, context)
 
 

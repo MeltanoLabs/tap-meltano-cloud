@@ -114,6 +114,15 @@
     {
       "breadcrumb": [
         "properties",
+        "meltanoVersion"
+      ],
+      "metadata": {
+        "inclusion": "available"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
         "imageUrl"
       ],
       "metadata": {
@@ -150,18 +159,7 @@
     {
       "breadcrumb": [
         "properties",
-        "_embedded"
-      ],
-      "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "_embedded",
-        "properties",
-        "embeddedWrappers"
+        "settings"
       ],
       "metadata": {
         "inclusion": "available"
@@ -191,46 +189,6 @@
   "replication_method": "FULL_TABLE",
   "schema": {
     "properties": {
-      "_embedded": {
-        "properties": {
-          "embeddedWrappers": {
-            "items": {
-              "properties": {
-                "collectionValue": {
-                  "type": [
-                    "boolean",
-                    "null"
-                  ]
-                },
-                "rel": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "value": {
-                  "type": [
-                    "object",
-                    "null"
-                  ]
-                }
-              },
-              "type": [
-                "object",
-                "null"
-              ]
-            },
-            "type": [
-              "array",
-              "null"
-            ]
-          }
-        },
-        "type": [
-          "object",
-          "null"
-        ]
-      },
       "_links": {
         "additionalProperties": {
           "properties": {
@@ -334,6 +292,12 @@
           "null"
         ]
       },
+      "meltanoVersion": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
       "name": {
         "type": [
           "string",
@@ -361,6 +325,207 @@
       "repositoryUrl": {
         "type": [
           "string",
+          "null"
+        ]
+      },
+      "settings": {
+        "items": {
+          "properties": {
+            "_links": {
+              "additionalProperties": {
+                "properties": {
+                  "deprecation": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  },
+                  "hreflang": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "profile": {
+                    "type": "string"
+                  },
+                  "templated": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "aliases": {
+              "items": {
+                "type": "string"
+              },
+              "type": [
+                "array",
+                "null"
+              ]
+            },
+            "configured": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "default_value": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "documentation": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "encoding": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "env": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "hidden": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "kind": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "options": {
+              "items": {
+                "properties": {
+                  "label": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              "type": [
+                "array",
+                "null"
+              ]
+            },
+            "placeholder": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "protected": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "required": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sensitive": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "tooltip": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "value_hint": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value_post_processor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value_processor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "type": [
+          "array",
           "null"
         ]
       },
