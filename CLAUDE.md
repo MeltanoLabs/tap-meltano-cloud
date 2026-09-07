@@ -71,6 +71,7 @@ The SDK provides built-in pagination classes. **Use these instead of overriding 
    ```python
    from singer_sdk.pagination import SimpleHeaderPaginator
 
+
    class MyStream(MeltanoCloudStream):
        def get_new_paginator(self):
            return SimpleHeaderPaginator()
@@ -80,6 +81,7 @@ The SDK provides built-in pagination classes. **Use these instead of overriding 
 
    ```python
    from singer_sdk.pagination import HeaderLinkPaginator
+
 
    class MyStream(MeltanoCloudStream):
        def get_new_paginator(self):
@@ -91,6 +93,7 @@ The SDK provides built-in pagination classes. **Use these instead of overriding 
    ```python
    from singer_sdk.pagination import JSONPathPaginator
 
+
    class MyStream(MeltanoCloudStream):
        def get_new_paginator(self):
            return JSONPathPaginator("$.pagination.next_token")
@@ -100,6 +103,7 @@ The SDK provides built-in pagination classes. **Use these instead of overriding 
 
    ```python
    from singer_sdk.pagination import SinglePagePaginator
+
 
    class MyStream(MeltanoCloudStream):
        def get_new_paginator(self):
@@ -113,6 +117,7 @@ For complex pagination logic, create a custom paginator class:
 ```python
 from singer_sdk.pagination import PageNumberPaginator
 
+
 class MyCustomPaginator(PageNumberPaginator):
     def has_more(self, response):
         """Check if there are more pages."""
@@ -125,6 +130,7 @@ class MyCustomPaginator(PageNumberPaginator):
         if self.has_more(response):
             return data.get("next_url")
         return None
+
 
 # Use in stream
 class MyStream(MeltanoCloudStream):
