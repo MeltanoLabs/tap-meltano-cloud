@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Any
 import singer_sdk.typing as th
 from singer_sdk import OpenAPISchema, Stream, StreamSchema
 from singer_sdk.authenticators import BearerTokenAuthenticator
-from singer_sdk.pagination import BaseHATEOASPaginator
+from singer_sdk.pagination import BaseHATEOASPaginator, SinglePagePaginator
 from singer_sdk.streams import RESTStream
 
 from tap_meltano_cloud import openapi
@@ -22,29 +22,44 @@ else:
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
+    from urllib.parse import ParseResult
 
     import requests
     from singer_sdk.helpers.types import Context, Record
     from singer_sdk.pagination import BaseAPIPaginator
+    from singer_sdk.streams.rest import HTTPRequest, PageContext
 
 OPENAPI_SCHEMA = OpenAPISchema(resources.files(openapi) / "openapi.json")
 
 
-# TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-# https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
 class MeltanoCloudPaginator(BaseHATEOASPaginator):
-    """Paginator for MeltanoCloud Spring HATEOAS paged responses."""
+    """Paginator for MeltanoCloud Spring HATEOAS paged responses.
+
+    Follows the ``_links.next.href`` URL, but stops on the last page according to
+    the current response's ``page`` metadata, or when a page has no records. Some
+    endpoints report inconsistent totals across pages, so the ``next`` link alone
+    is not a reliable stop condition.
+    """
 
     @override
     def get_next_url(self, response: requests.Response) -> str | None:
-        return response.json().get("_links", {}).get("next", {}).get("href")
+        data = response.json()
+        if not isinstance(data, dict) or not data.get("_embedded"):
+            return None
+
+        page = data.get("page")
+        if page and page.get("number", 0) >= page.get("totalPages", 1) - 1:
+            return None
+
+        next_url = data.get("_links", {}).get("next", {}).get("href")
+        if next_url == response.url:
+            return None
+        return next_url
 
 
 class MeltanoCloudStream(RESTStream[Any]):
     """MeltanoCloud stream class."""
 
-    # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-    # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
     page_size = 50
 
     records_jsonpath = "$[*]"
@@ -74,9 +89,25 @@ class MeltanoCloudStream(RESTStream[Any]):
     @override
     def get_new_paginator(self) -> BaseAPIPaginator | None:
         """Return a new paginator instance."""
-        # TODO(tap-meltano-cloud): Enable pagination when the API supports it correctly
-        # https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
-        return None
+        return MeltanoCloudPaginator()
+
+    @override
+    def get_url_params(
+        self,
+        context: Context | None,
+        next_page_token: ParseResult | None,
+    ) -> dict[str, Any]:
+        """Request a larger first page; subsequent pages use the ``next`` URL."""
+        return {"size": self.page_size}
+
+    @override
+    def get_http_request(self, *, page: PageContext) -> HTTPRequest:
+        """Request the HATEOAS ``next`` URL as-is when paginating."""
+        request = super().get_http_request(page=page)
+        if page.next_page_token:
+            request.url = page.next_page_token.geturl()
+            request.params = {}
+        return request
 
 
 class WorkspaceChildSchema(StreamSchema[str]):
@@ -174,6 +205,16 @@ class PipelinesMixin(Stream):
     path = "/workspaces/{workspaceId}/pipelines"
     records_jsonpath = "$._embedded.pipelines[*]"
     schema = PipelineSchema(OPENAPI_SCHEMA, key="PipelineResource")
+
+    def get_new_paginator(self) -> BaseAPIPaginator | None:
+        """Return a single-page paginator.
+
+        This endpoint ignores paging parameters and returns every pipeline on each
+        page, while its ``page`` metadata and ``next`` links keep advancing. Following
+        them would emit the same pipelines repeatedly.
+        See https://github.com/MeltanoLabs/tap-meltano-cloud/issues/1
+        """
+        return SinglePagePaginator()
 
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
