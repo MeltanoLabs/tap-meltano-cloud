@@ -18,7 +18,7 @@
         "created"
       ],
       "metadata": {
-        "inclusion": "available"
+        "inclusion": "automatic"
       }
     },
     {
@@ -124,15 +124,20 @@
       "breadcrumb": [],
       "metadata": {
         "inclusion": "available",
+        "replication-key": "created",
         "selected": true,
         "selected-by-default": true,
         "table-key-properties": [
           "id"
+        ],
+        "valid-replication-keys": [
+          "created"
         ]
       }
     }
   ],
-  "replication_method": "FULL_TABLE",
+  "replication_key": "created",
+  "replication_method": "INCREMENTAL",
   "schema": {
     "properties": {
       "_links": {

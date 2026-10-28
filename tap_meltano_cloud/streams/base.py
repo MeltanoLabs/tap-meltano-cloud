@@ -98,7 +98,10 @@ class MeltanoCloudStream(RESTStream[Any]):
         next_page_token: ParseResult | None,
     ) -> dict[str, Any]:
         """Request a larger first page; subsequent pages use the ``next`` URL."""
-        return {"size": self.page_size}
+        params: dict[str, Any] = {"size": self.page_size}
+        if since := self.get_starting_timestamp(context):
+            params["since"] = since.isoformat()
+        return params
 
     @override
     def get_http_request(self, *, page: PageContext) -> HTTPRequest:
@@ -238,6 +241,7 @@ class PipelineJobsMixin(Stream):
     name = "pipeline_jobs"
     path = "/pipelines/{pipelineId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
+    replication_key = "created"
     schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
 
     @override
@@ -306,6 +310,7 @@ class JobsMixin(Stream):
     name = "jobs"
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
+    replication_key = "created"
     schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
     @override
