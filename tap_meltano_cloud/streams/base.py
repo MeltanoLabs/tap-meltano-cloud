@@ -243,7 +243,7 @@ class PipelineJobsMixin(Stream):
     name = "pipeline_jobs"
     path = "/pipelines/{pipelineId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    replication_key = "lastStatusChange"
+    replication_key = "endTime"
     is_sorted = True
     schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
 
@@ -313,7 +313,7 @@ class JobsMixin(Stream):
     name = "jobs"
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    replication_key = "lastStatusChange"
+    replication_key = "endTime"
     is_sorted = True
     schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
