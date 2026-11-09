@@ -99,6 +99,8 @@ class MeltanoCloudStream(RESTStream[Any]):
     ) -> dict[str, Any]:
         """Request a larger first page; subsequent pages use the ``next`` URL."""
         params: dict[str, Any] = {"size": self.page_size}
+        if self.replication_key:
+            params["sort"] = f"{self.replication_key},asc"
         if since := self.get_starting_timestamp(context):
             params["since"] = since.isoformat()
         return params
@@ -241,7 +243,8 @@ class PipelineJobsMixin(Stream):
     name = "pipeline_jobs"
     path = "/pipelines/{pipelineId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    replication_key = "created"
+    replication_key = "lastStatusChange"
+    is_sorted = True
     schema = PipelineJobSchema(OPENAPI_SCHEMA, key="JobResource")
 
     @override
@@ -310,7 +313,8 @@ class JobsMixin(Stream):
     name = "jobs"
     path = "/workspaces/{workspaceId}/jobs"
     records_jsonpath = "$._embedded.jobs[*]"
-    replication_key = "created"
+    replication_key = "lastStatusChange"
+    is_sorted = True
     schema = WorkspaceChildSchema(OPENAPI_SCHEMA, key="JobResource")
 
     @override
