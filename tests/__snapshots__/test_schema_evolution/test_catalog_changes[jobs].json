@@ -18,7 +18,7 @@
         "created"
       ],
       "metadata": {
-        "inclusion": "automatic"
+        "inclusion": "available"
       }
     },
     {
@@ -105,6 +105,15 @@
     {
       "breadcrumb": [
         "properties",
+        "lastStatusChange"
+      ],
+      "metadata": {
+        "inclusion": "automatic"
+      }
+    },
+    {
+      "breadcrumb": [
+        "properties",
         "_links"
       ],
       "metadata": {
@@ -124,19 +133,19 @@
       "breadcrumb": [],
       "metadata": {
         "inclusion": "available",
-        "replication-key": "created",
+        "replication-key": "lastStatusChange",
         "selected": true,
         "selected-by-default": true,
         "table-key-properties": [
           "id"
         ],
         "valid-replication-keys": [
-          "created"
+          "lastStatusChange"
         ]
       }
     }
   ],
-  "replication_key": "created",
+  "replication_key": "lastStatusChange",
   "replication_method": "INCREMENTAL",
   "schema": {
     "properties": {
@@ -212,6 +221,13 @@
       "id": {
         "format": "uuid",
         "type": "string"
+      },
+      "lastStatusChange": {
+        "format": "date-time",
+        "type": [
+          "string",
+          "null"
+        ]
       },
       "maxAttempts": {
         "format": "int32",
