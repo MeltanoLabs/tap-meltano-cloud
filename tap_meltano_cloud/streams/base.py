@@ -259,6 +259,8 @@ class PipelineMetricsMixin(Stream):
 
     name = "pipeline_metrics"
     path = "/pipelines/{pipelineId}/metrics"
+    # The endpoint has no paging, so `size` caps how many of the latest runs it returns.
+    page_size = 1000
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse pipeline metrics."""
