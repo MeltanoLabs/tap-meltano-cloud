@@ -12716,10 +12716,6 @@
                         "type": "string",
                         "format": "date-time"
                     },
-                    "lastStatusChange": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
                     "_links": {
                         "$ref": "#/components/schemas/Links"
                     }

@@ -99,15 +99,6 @@
         "endTime"
       ],
       "metadata": {
-        "inclusion": "available"
-      }
-    },
-    {
-      "breadcrumb": [
-        "properties",
-        "lastStatusChange"
-      ],
-      "metadata": {
         "inclusion": "automatic"
       }
     },
@@ -133,19 +124,19 @@
       "breadcrumb": [],
       "metadata": {
         "inclusion": "available",
-        "replication-key": "lastStatusChange",
+        "replication-key": "endTime",
         "selected": true,
         "selected-by-default": true,
         "table-key-properties": [
           "id"
         ],
         "valid-replication-keys": [
-          "lastStatusChange"
+          "endTime"
         ]
       }
     }
   ],
-  "replication_key": "lastStatusChange",
+  "replication_key": "endTime",
   "replication_method": "INCREMENTAL",
   "schema": {
     "properties": {
@@ -221,13 +212,6 @@
       "id": {
         "format": "uuid",
         "type": "string"
-      },
-      "lastStatusChange": {
-        "format": "date-time",
-        "type": [
-          "string",
-          "null"
-        ]
       },
       "maxAttempts": {
         "format": "int32",

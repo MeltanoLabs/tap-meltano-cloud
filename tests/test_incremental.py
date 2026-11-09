@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 def test_jobs_since_bookmark() -> None:
-    """Request only the jobs changed since the bookmark, by last status change."""
+    """Request only the jobs that ended since the bookmark, by end time."""
     queries: list[dict[str, list[str]]] = []
 
     class Handler(BaseHTTPRequestHandler):
@@ -41,7 +41,7 @@ def test_jobs_since_bookmark() -> None:
                         "partitions": [
                             {
                                 "context": {"workspaceId": "workspace"},
-                                "replication_key": "lastStatusChange",
+                                "replication_key": "endTime",
                                 "replication_key_value": "2026-10-01T00:00:00",
                             },
                         ],
@@ -58,17 +58,17 @@ def test_jobs_since_bookmark() -> None:
         {
             "size": ["50"],
             "since": ["2026-10-01T00:00:00+00:00"],
-            "sort": ["lastStatusChange,asc"],
+            "sort": ["endTime,asc"],
         },
     ]
 
 
-def test_pipeline_jobs_since_last_status_change(capsys: pytest.CaptureFixture[str]) -> None:
-    """Request pipeline jobs by last status change, and bookmark the latest change."""
+def test_pipeline_jobs_since_end_time(capsys: pytest.CaptureFixture[str]) -> None:
+    """Request pipeline jobs by end time, and bookmark the latest end."""
     queries: dict[str, dict[str, list[str]]] = {}
     jobs = [
-        {"id": "job-1", "lastStatusChange": "2026-10-02T00:00:00"},
-        {"id": "job-2", "lastStatusChange": "2026-10-03T00:00:00"},
+        {"id": "job-1", "endTime": "2026-10-02T00:00:00"},
+        {"id": "job-2", "endTime": "2026-10-03T00:00:00"},
     ]
 
     class Handler(BaseHTTPRequestHandler):
@@ -101,7 +101,7 @@ def test_pipeline_jobs_since_last_status_change(capsys: pytest.CaptureFixture[st
                         "partitions": [
                             {
                                 "context": {"pipelineId": "pipeline", "workspaceId": "workspace"},
-                                "replication_key": "lastStatusChange",
+                                "replication_key": "endTime",
                                 "replication_key_value": "2026-10-01T00:00:00",
                             },
                         ],
@@ -117,10 +117,10 @@ def test_pipeline_jobs_since_last_status_change(capsys: pytest.CaptureFixture[st
     assert queries["/pipelines/pipeline/jobs"] == {
         "size": ["50"],
         "since": ["2026-10-01T00:00:00+00:00"],
-        "sort": ["lastStatusChange,asc"],
+        "sort": ["endTime,asc"],
     }
     messages = [json.loads(line) for line in capsys.readouterr().out.splitlines()]
     state = next(m for m in reversed(messages) if m["type"] == "STATE")["value"]
     [partition] = state["bookmarks"]["pipeline_jobs"]["partitions"]
-    assert partition["replication_key"] == "lastStatusChange"
+    assert partition["replication_key"] == "endTime"
     assert partition["replication_key_value"] == "2026-10-03T00:00:00"
