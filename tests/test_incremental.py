@@ -63,6 +63,41 @@ def test_jobs_since_bookmark() -> None:
     ]
 
 
+def test_jobs_first_sync_unfinished(capsys: pytest.CaptureFixture[str]) -> None:
+    """Sync an unfinished job, which has no end time, without moving the bookmark."""
+    jobs = [{"id": "job-1", "endTime": "2026-10-02T00:00:00"}, {"id": "job-2"}]
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            body = {"_embedded": {"jobs": jobs}, "page": {"number": 0, "totalPages": 1}}
+            self.wfile.write(json.dumps(body).encode())
+
+    server = HTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        tap = TapMeltanoCloud(
+            config={
+                "auth_token": "token",
+                "api_url": f"http://127.0.0.1:{server.server_port}",
+                "workspace_ids": ["workspace"],
+            },
+        )
+        tap.streams["jobs"].sync()
+    finally:
+        server.shutdown()
+        server.server_close()
+
+    messages = [json.loads(line) for line in capsys.readouterr().out.splitlines()]
+    records = [m["record"] for m in messages if m["type"] == "RECORD"]
+    assert [(r["id"], r["endTime"]) for r in records] == [("job-1", "2026-10-02T00:00:00"), ("job-2", None)]
+    state = next(m for m in reversed(messages) if m["type"] == "STATE")["value"]
+    [partition] = state["bookmarks"]["jobs"]["partitions"]
+    assert partition["replication_key_value"] == "2026-10-02T00:00:00"
+
+
 def test_pipeline_jobs_since_end_time(capsys: pytest.CaptureFixture[str]) -> None:
     """Request pipeline jobs by end time, and bookmark the latest end."""
     queries: dict[str, dict[str, list[str]]] = {}
