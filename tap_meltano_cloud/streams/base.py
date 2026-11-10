@@ -250,6 +250,8 @@ class PipelineJobsMixin(Stream):
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         """Update the pipeline job record."""
+        # The API omits a null field, and the SDK needs the replication key in every record.
+        row.setdefault(self.replication_key, None)
         row.pop("_embedded", None)
         return super().post_process(row, context)
 
@@ -322,6 +324,8 @@ class JobsMixin(Stream):
     @override
     def post_process(self, row: dict, context: Context | None = None) -> dict | None:
         """Update the job record."""
+        # The API omits a null field, and the SDK needs the replication key in every record.
+        row.setdefault(self.replication_key, None)
         row.pop("_embedded", None)
         return super().post_process(row, context)
 
